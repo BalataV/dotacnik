@@ -1,15 +1,19 @@
 {
   "expo": {
-    "name": "BabisovnikApp",
+    "name": "Čapí Dluh",
     "slug": "BabisovnikApp",
+    "scheme": "capidluh",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#FFD60A",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.balata.capidluh"
     },
     "android": {
+      "package": "com.balata.capidluh",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -19,6 +23,22 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "supabaseUrl": "https://fbhwsrclexkhpbfiwprw.supabase.co",
+      "supabaseAnonKey": "sb_publishable_HeHvUgksqdXQV2kfqTBVHg_UGkY1ib4"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-splash-screen",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Čapí Dluh potřebuje přístup k fotkám, abys mohl přidat účtenku k výdaji.",
+          "cameraPermission": "Čapí Dluh potřebuje přístup k fotoaparátu, abys mohl vyfotit účtenku."
+        }
+      ],
+      "expo-web-browser"
+    ]
   }
 }

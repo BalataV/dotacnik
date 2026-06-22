@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Čapí Dluh — rozděl útraty bez hádek</title>
+  <meta name="description" content="Čapí Dluh — appka na dělení útrat ve skupinách. Klikni a přidej se do skupiny." />
+
+  <!-- Náhled při sdílení na sociálních sítích / v chatu -->
+  <meta property="og:title" content="Čapí Dluh — přidej se do skupiny" />
+  <meta property="og:description" content="Někdo tě zve, abys s ním rozdělil útraty. Otevři a přidej se jedním klepnutím." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFD60A;
+      --card: #FFFFFF;
+      --ink: #15233B;
+      --muted: #7A839A;
+      --accent: #1D5FD8;
+      --accent2: #FF5A36;
+      --good: #1FA06A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Nunito', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 18px 48px;
+    }
+    h1, h2, .display { font-family: 'Baloo 2', cursive; }
+
+    .wrap { width: 100%; max-width: 440px; }
+
+    /* Neo-brutalistická karta: 3px okraj + tvrdý posunutý stín */
+    .card {
+      background: var(--card);
+      border: 3px solid var(--ink);
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .mascot {
+      width: 76px; height: 76px;
+      border-radius: 38px;
+      background: var(--bg);
+      border: 3px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 18px;
+    }
+
+    h1 { font-size: 30px; font-weight: 700; text-align: center; letter-spacing: -0.5px; line-height: 1.15; }
+    .lead { text-align: center; color: var(--ink); opacity: 0.7; margin-top: 8px; font-weight: 700; line-height: 1.45; }
+
+    .code-box {
+      background: var(--bg);
+      border: 3px dashed var(--ink);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      margin: 18px 0;
+    }
+    .code-box .label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--ink); opacity: 0.6; }
+    .code-box .code { font-family: 'Baloo 2', cursive; font-size: 32px; font-weight: 700; letter-spacing: 4px; margin-top: 4px; }
+
+    /* Tlačítka ve stylu appky */
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 15px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 4px 4px 0 var(--ink);
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.05s, box-shadow 0.05s;
+    }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-accent { background: var(--accent2); color: #fff; }
+    .btn-light { background: var(--card); color: var(--ink); }
+
+    .steps { list-style: none; margin-top: 8px; }
+    .steps li { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-weight: 700; }
+    .steps .num {
+      flex: none; width: 26px; height: 26px; border-radius: 13px;
+      background: var(--accent); color: #fff; border: 2px solid var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Baloo 2', cursive; font-size: 14px;
+    }
+
+    .hint { font-size: 13px; color: var(--ink); opacity: 0.55; font-weight: 700; text-align: center; margin-top: 6px; line-height: 1.5; }
+
+    .feature { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; font-weight: 700; }
+    .feature .emoji { font-size: 26px; flex: none; }
+
+    footer { margin-top: 12px; text-align: center; }
+    footer a { color: var(--ink); font-weight: 800; font-size: 13px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- ===== POZVÁNKA (zobrazí se, když je v adrese ?g=KÓD) ===== -->
+    <section id="invite" class="hidden">
+      <div class="card">
+        <div class="mascot">🦤</div>
+        <h1>Někdo tě zve do skupiny!</h1>
+        <p class="lead">Přidej se a rozdělte si útraty férově — žádné počítání na ubrousku.</p>
+
+        <div class="code-box">
+          <div class="label">Kód skupiny</div>
+          <div class="code" id="codeText">——————</div>
+        </div>
+
+        <a id="openApp" class="btn btn-primary" href="#">📲 Otevřít v appce</a>
+        <p class="hint">Máš appku Čapí Dluh? Klepni na tlačítko nahoře. Nemáš? Nainstaluj si ji podle kroků dole a kód zadej ručně.</p>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size:20px; margin-bottom:14px;">Jak se přidat</h2>
+        <ol class="steps">
+          <li><span class="num">1</span><span>Nainstaluj si appku <strong>Čapí Dluh</strong> (tlačítko níže).</span></li>
+          <li><span class="num">2</span><span>Otevři appku a dej <strong>Připojit se do skupiny</strong>.</span></li>
+          <li><span class="num">3</span><span>Zadej kód <strong id="codeInline">——————</strong> a hotovo.</span></li>
+        </ol>
+        <a id="downloadInvite" class="btn btn-accent" href="#" target="_blank" rel="noopener">⬇️ Stáhnout appku</a>
+      </div>
+    </section>
+
+    <!-- ===== ÚVODNÍ STRÁNKA (když v adrese není kód) ===== -->
+    <section id="home" class="hidden">
+      <div class="card">
+        <div class="mascot">🦤</div>
+        <h1>Čapí Dluh</h1>
+        <p class="lead">Rozděl útraty ve skupině bez hádek a bez počítání na ubrousku.</p>
+        <a id="downloadHome" class="btn btn-accent" href="#" target="_blank" rel="noopener" style="margin-top:20px;">⬇️ Stáhnout appku</a>
+      </div>
+
+      <div class="card">
+        <div class="feature"><span class="emoji">🧾</span><span>Zapiš výdaj, kdo platil a za koho — appka spočítá, kdo komu dluží.</span></div>
+        <div class="feature"><span class="emoji">👫</span><span>Pozvi kamarády do skupiny jedním odkazem.</span></div>
+        <div class="feature"><span class="emoji">💸</span><span>Chytré vyrovnání: co nejmíň převodů, ať to máte rychle z krku.</span></div>
+        <div class="feature"><span class="emoji">📷</span><span>Přidej fotku účtenky, ať je jasno.</span></div>
+      </div>
+    </section>
+
+    <footer>
+      <a href="privacy.html">Zásady ochrany osobních údajů</a>
+    </footer>
+  </div>
+
+  <script>
+    // === Co je potřeba doplnit po sestavení appky ===
+    // Sem dej odkaz na stažení appky (Play Store nebo přímý odkaz na .apk z EAS buildu).
+    // Dokud sem nic nedáš, tlačítka "Stáhnout" odkazují sem na tuto stránku.
+    var DOWNLOAD_URL = '';
+
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var code = (params.get('g') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+      // Tlačítka pro stažení
+      var dl = DOWNLOAD_URL || '#';
+      ['downloadInvite', 'downloadHome'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = dl;
+      });
+
+      if (code) {
+        // Režim POZVÁNKA
+        document.getElementById('invite').classList.remove('hidden');
+        document.getElementById('codeText').textContent = code;
+        document.getElementById('codeInline').textContent = code;
+        // Deep link do appky — appka pozná capidluh://join/KÓD
+        document.getElementById('openApp').href = 'capidluh://join/' + code;
+        document.title = 'Pozvánka do skupiny — Čapí Dluh';
+      } else {
+        // Režim ÚVODNÍ STRÁNKA
+        document.getElementById('home').classList.remove('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
