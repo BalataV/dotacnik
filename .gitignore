@@ -39,3 +39,8 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Web export pro GitHub Pages balí fonty pod cestu node_modules – ty se commitnout MUSÍ,
+# jinak se web appka načte bez fontů. Přebíjí pravidlo node_modules/ výše.
+!docs/app/assets/node_modules/
+!docs/app/assets/node_modules/**

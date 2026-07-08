@@ -1,4 +1,4 @@
-# Čapí Dluh 📱💸
+# Dotačník 📱💸
 
 Mobilní aplikace na dělení společných útrat (styl Splitwise) s vtipným maskotem (parodie politika-podnikatele).
 Postaveno v **React Native + Expo** – jeden kód běží na **Androidu i iPhonu**.

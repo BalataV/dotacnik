@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Čapí Dluh",
+    "name": "Dotačník",
     "slug": "BabisovnikApp",
-    "scheme": "capidluh",
+    "scheme": "dotacnik",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,10 +10,10 @@
     "backgroundColor": "#FFD60A",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.balata.capidluh"
+      "bundleIdentifier": "com.balata.dotacnik"
     },
     "android": {
-      "package": "com.balata.capidluh",
+      "package": "com.balata.dotacnik",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -26,7 +26,10 @@
     },
     "extra": {
       "supabaseUrl": "https://fbhwsrclexkhpbfiwprw.supabase.co",
-      "supabaseAnonKey": "sb_publishable_HeHvUgksqdXQV2kfqTBVHg_UGkY1ib4"
+      "supabaseAnonKey": "sb_publishable_HeHvUgksqdXQV2kfqTBVHg_UGkY1ib4",
+      "eas": {
+        "projectId": "b1122417-e0d5-47ea-ad71-dcf4b5e90cc1"
+      }
     },
     "plugins": [
       "expo-font",
@@ -34,11 +37,33 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Čapí Dluh potřebuje přístup k fotkám, abys mohl přidat účtenku k výdaji.",
-          "cameraPermission": "Čapí Dluh potřebuje přístup k fotoaparátu, abys mohl vyfotit účtenku."
+          "photosPermission": "Dotačník potřebuje přístup k fotkám, abys mohl přidat účtenku k výdaji.",
+          "cameraPermission": "Dotačník potřebuje přístup k fotoaparátu, abys mohl vyfotit účtenku.",
+          "microphonePermission": false
         }
       ],
-      "expo-web-browser"
-    ]
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "color": "#FFD60A"
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Dotačník používá Face ID k odemknutí aplikace."
+        }
+      ]
+    ],
+    "experiments": {
+      "baseUrl": "/dotacnik/app"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b1122417-e0d5-47ea-ad71-dcf4b5e90cc1"
+    }
   }
 }

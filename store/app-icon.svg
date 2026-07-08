@@ -1,0 +1,39 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ikona aplikace Dotačník 1024x1024. Export do PNG 512x512 pro Google Play
+       (a 1024x1024 pro assets/icon.png). Plná plocha bez průhlednosti. -->
+  <rect width="1024" height="1024" fill="#FFD60A"/>
+
+  <!-- jemné mince v pozadí -->
+  <circle cx="140" cy="870" r="60" fill="#FFE680" stroke="#15233B" stroke-width="10"/>
+  <text x="140" y="890" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#15233B" text-anchor="middle">Kč</text>
+  <circle cx="880" cy="150" r="52" fill="#FFE680" stroke="#15233B" stroke-width="10"/>
+  <text x="880" y="168" font-family="Arial, sans-serif" font-size="38" font-weight="800" fill="#15233B" text-anchor="middle">Kč</text>
+
+  <!-- maskot – velká hlava uprostřed (stejná geometrie jako v appce) -->
+  <g transform="translate(152,120) scale(7.2)">
+    <!-- vlasy vzadu -->
+    <rect x="17" y="1" width="66" height="55" rx="28" fill="#B9B1A0"/>
+    <!-- uši -->
+    <rect x="15" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <rect x="72" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <!-- obličej -->
+    <rect x="22" y="9" width="56" height="69" rx="27" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <!-- vlasy nahoře -->
+    <rect x="23" y="3" width="54" height="27" rx="24" fill="#C7BFAE" stroke="#15233B" stroke-width="3"/>
+    <!-- obočí -->
+    <rect x="30" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+    <rect x="56" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+    <!-- oči -->
+    <circle cx="37.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+    <circle cx="38.5" cy="46" r="3" fill="#15233B"/>
+    <circle cx="62.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+    <circle cx="63.5" cy="46" r="3" fill="#15233B"/>
+    <!-- nos -->
+    <rect x="45" y="48" width="11" height="15" rx="5" fill="#E6B488"/>
+    <!-- pusa (mírný úsměv) -->
+    <path d="M39 66 h23 a0 0 0 0 1 0 0 v3 q0 8 -11.5 8 q-11.5 0 -11.5 -8 Z" fill="#8A3D2E" stroke="#15233B" stroke-width="2"/>
+    <!-- límec + kravata -->
+    <path d="M13 112 L13 95 Q13 84 43 84 L57 84 Q87 84 87 95 L87 112 Z" fill="#15233B"/>
+    <rect x="45" y="84" width="10" height="17" rx="3" fill="#E23B2E" stroke="#15233B" stroke-width="2"/>
+  </g>
+</svg>

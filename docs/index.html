@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Čapí Dluh — rozděl útraty bez hádek</title>
-  <meta name="description" content="Čapí Dluh — appka na dělení útrat ve skupinách. Klikni a přidej se do skupiny." />
+  <title>Dotačník — rozděl útraty bez hádek</title>
+  <meta name="description" content="Dotačník — appka na dělení útrat ve skupinách. Klikni a přidej se do skupiny." />
 
   <!-- Náhled při sdílení na sociálních sítích / v chatu -->
-  <meta property="og:title" content="Čapí Dluh — přidej se do skupiny" />
+  <meta property="og:title" content="Dotačník — přidej se do skupiny" />
   <meta property="og:description" content="Někdo tě zve, abys s ním rozdělil útraty. Otevři a přidej se jedním klepnutím." />
   <meta property="og:type" content="website" />
 
@@ -132,13 +132,13 @@
         </div>
 
         <a id="openApp" class="btn btn-primary" href="#">📲 Otevřít v appce</a>
-        <p class="hint">Máš appku Čapí Dluh? Klepni na tlačítko nahoře. Nemáš? Nainstaluj si ji podle kroků dole a kód zadej ručně.</p>
+        <p class="hint">Máš appku Dotačník? Klepni na tlačítko nahoře. Nemáš? Nainstaluj si ji podle kroků dole a kód zadej ručně.</p>
       </div>
 
       <div class="card">
         <h2 style="font-size:20px; margin-bottom:14px;">Jak se přidat</h2>
         <ol class="steps">
-          <li><span class="num">1</span><span>Nainstaluj si appku <strong>Čapí Dluh</strong> (tlačítko níže).</span></li>
+          <li><span class="num">1</span><span>Nainstaluj si appku <strong>Dotačník</strong> (tlačítko níže).</span></li>
           <li><span class="num">2</span><span>Otevři appku a dej <strong>Připojit se do skupiny</strong>.</span></li>
           <li><span class="num">3</span><span>Zadej kód <strong id="codeInline">——————</strong> a hotovo.</span></li>
         </ol>
@@ -150,7 +150,7 @@
     <section id="home" class="hidden">
       <div class="card">
         <div class="mascot">🦤</div>
-        <h1>Čapí Dluh</h1>
+        <h1>Dotačník</h1>
         <p class="lead">Rozděl útraty ve skupině bez hádek a bez počítání na ubrousku.</p>
         <a id="downloadHome" class="btn btn-accent" href="#" target="_blank" rel="noopener" style="margin-top:20px;">⬇️ Stáhnout appku</a>
       </div>
@@ -190,9 +190,9 @@
         document.getElementById('invite').classList.remove('hidden');
         document.getElementById('codeText').textContent = code;
         document.getElementById('codeInline').textContent = code;
-        // Deep link do appky — appka pozná capidluh://join/KÓD
-        document.getElementById('openApp').href = 'capidluh://join/' + code;
-        document.title = 'Pozvánka do skupiny — Čapí Dluh';
+        // Deep link do appky — appka pozná dotacnik://join/KÓD
+        document.getElementById('openApp').href = 'dotacnik://join/' + code;
+        document.title = 'Pozvánka do skupiny — Dotačník';
       } else {
         // Režim ÚVODNÍ STRÁNKA
         document.getElementById('home').classList.remove('hidden');
