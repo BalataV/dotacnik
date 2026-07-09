@@ -63,9 +63,8 @@ export default function Profile() {
   return (
     <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 20, paddingBottom: 24, alignItems: 'center' }}>
       <Mascot size={110} float />
-      <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginTop: 8, marginBottom: 18 }}>Střet zájmů</Text>
 
-      <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16, width: '100%' }}>
+      <View style={{ flexDirection: 'row', gap: 8, marginTop: 18, marginBottom: 16, width: '100%' }}>
         <StatBox value={fmtMoneyMap(owe)} label="Dlužíš" color={c.bad} onPress={() => actions.navigate('overview')} />
         <StatBox value={fmtMoneyMap(owed)} label="Dostaneš" color={c.good} onPress={() => actions.navigate('overview')} />
         <StatBox value={String(state.groups.length)} label="Skupiny" color={c.accent} onPress={() => actions.navigate('overview')} />

@@ -122,7 +122,16 @@
     <!-- ===== POZVÁNKA (zobrazí se, když je v adrese ?g=KÓD) ===== -->
     <section id="invite" class="hidden">
       <div class="card">
-        <div class="mascot">🦤</div>
+        <div class="mascot"><svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Čáp">
+          <path d="M27 46 L25 61 M35 46 L37 61" stroke="#E4572E" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="29" cy="36" rx="16" ry="11" fill="#fff" stroke="#15233B" stroke-width="3"/>
+          <path d="M13 35 q7 4 13 1 l-4 8 q-7 -1 -9 -9 z" fill="#15233B"/>
+          <path d="M40 30 q8 -2 6 -15" fill="none" stroke="#15233B" stroke-width="9" stroke-linecap="round"/>
+          <path d="M40 30 q8 -2 6 -15" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="47" cy="15" r="5.5" fill="#fff" stroke="#15233B" stroke-width="3"/>
+          <circle cx="48.5" cy="14" r="1.5" fill="#15233B"/>
+          <path d="M51 14 L63 11 L52 19 Z" fill="#E4572E" stroke="#15233B" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg></div>
         <h1>Někdo tě zve do skupiny!</h1>
         <p class="lead">Přidej se a rozdělte si útraty férově — žádné počítání na ubrousku.</p>
 
@@ -149,17 +158,26 @@
     <!-- ===== ÚVODNÍ STRÁNKA (když v adrese není kód) ===== -->
     <section id="home" class="hidden">
       <div class="card">
-        <div class="mascot">🦤</div>
+        <div class="mascot"><svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Čáp">
+          <path d="M27 46 L25 61 M35 46 L37 61" stroke="#E4572E" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="29" cy="36" rx="16" ry="11" fill="#fff" stroke="#15233B" stroke-width="3"/>
+          <path d="M13 35 q7 4 13 1 l-4 8 q-7 -1 -9 -9 z" fill="#15233B"/>
+          <path d="M40 30 q8 -2 6 -15" fill="none" stroke="#15233B" stroke-width="9" stroke-linecap="round"/>
+          <path d="M40 30 q8 -2 6 -15" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="47" cy="15" r="5.5" fill="#fff" stroke="#15233B" stroke-width="3"/>
+          <circle cx="48.5" cy="14" r="1.5" fill="#15233B"/>
+          <path d="M51 14 L63 11 L52 19 Z" fill="#E4572E" stroke="#15233B" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg></div>
         <h1>Dotačník</h1>
         <p class="lead">Rozděl útraty ve skupině bez hádek a bez počítání na ubrousku.</p>
         <a id="downloadHome" class="btn btn-accent" href="#" target="_blank" rel="noopener" style="margin-top:20px;">⬇️ Stáhnout appku</a>
       </div>
 
       <div class="card">
-        <div class="feature"><span class="emoji">🧾</span><span>Zapiš výdaj, kdo platil a za koho — appka spočítá, kdo komu dluží.</span></div>
-        <div class="feature"><span class="emoji">👫</span><span>Pozvi kamarády do skupiny jedním odkazem.</span></div>
+        <div class="feature"><span class="emoji">🧾</span><span>Zapiš výdaj, kdo platil a za koho — Andrejko spočítá za tebe, kdo komu dluží.</span></div>
+        <div class="feature"><span class="emoji">👫</span><span>Nebuďte slušní, řekněte jméno a pozvěte kamarády do skupiny jedním odkazem.</span></div>
         <div class="feature"><span class="emoji">💸</span><span>Chytré vyrovnání: co nejmíň převodů, ať to máte rychle z krku.</span></div>
-        <div class="feature"><span class="emoji">📷</span><span>Přidej fotku účtenky, ať je jasno.</span></div>
+        <div class="feature"><span class="emoji">📷</span><span>Přidej fotku účtenky, ať je jasno, že ta částka (ne)souhlasí.</span></div>
       </div>
     </section>
 
@@ -169,10 +187,10 @@
   </div>
 
   <script>
-    // === Co je potřeba doplnit po sestavení appky ===
-    // Sem dej odkaz na stažení appky (Play Store nebo přímý odkaz na .apk z EAS buildu).
-    // Dokud sem nic nedáš, tlačítka "Stáhnout" odkazují sem na tuto stránku.
-    var DOWNLOAD_URL = '';
+    // === Odkaz „Stáhnout appku" ===
+    // Zatím míří na webovou verzi (funguje na iPhonu i Androidu, jde přidat na plochu).
+    // Až bude appka na Google Play, nahraď tuto adresu odkazem na Play Store.
+    var DOWNLOAD_URL = 'https://balatav.github.io/dotacnik/app/';
 
     (function () {
       var params = new URLSearchParams(window.location.search);

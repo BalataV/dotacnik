@@ -55,7 +55,9 @@ function SpeechBubble({ text }: { text: string }) {
 // Zamčená appka – překryje vše, odemyká se biometrikou (auto-pokus hned po zobrazení)
 function LockScreen({ onUnlock }: { onUnlock: () => void }) {
   const c = useColors();
-  useEffect(() => { onUnlock(); }, []);
+  // Malé zpoždění: po návratu z pozadí musí být na Androidu aktivita připravená,
+  // jinak biometrický prompt selže. Klepnutí na tlačítko funguje kdykoliv.
+  useEffect(() => { const t = setTimeout(onUnlock, 400); return () => clearTimeout(t); }, []);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, backgroundColor: c.bg }}>
       <Mascot size={110} />

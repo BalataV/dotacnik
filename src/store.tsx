@@ -80,6 +80,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const moodTimer = useRef<any>(null);
   const pokeCount = useRef(0);       // easter egg: počítadlo šťouchnutí do maskota
   const pokeTimer = useRef<any>(null);
+  const unlocking = useRef(false);   // právě probíhá biometrické odemykání (proti souběhu)
   const loaded = useRef(false);
   const meRef = useRef<{ uid: string; myName: string } | null>(null); // spolehlivé čtení v async akcích
   const pendingJoin = useRef<string | null>(null);  // kód pozvánky čekající na přihlášení
@@ -661,10 +662,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Odemknutí zamčené appky biometrikou (s fallbackem na PIN zařízení)
   async function unlockApp() {
+    if (unlocking.current) return; // zabraň souběhu auto-pokusu a klepnutí na tlačítko
+    unlocking.current = true;
     try {
-      const res = await LocalAuth.authenticateAsync({ promptMessage: 'Odemkni Dotačník', cancelLabel: 'Zrušit' });
+      const hw = await LocalAuth.hasHardwareAsync();
+      const enrolled = hw && (await LocalAuth.isEnrolledAsync());
+      // Nemá čím ověřit (biometrika zrušená) → nenech uživatele zamčeného
+      if (!hw || !enrolled) { setState((s) => ({ ...s, locked: false })); return; }
+      const res = await LocalAuth.authenticateAsync({
+        promptMessage: 'Odemkni Dotačník',
+        cancelLabel: 'Zrušit',
+        disableDeviceFallback: false, // povol i PIN/gesto zařízení
+        requireConfirmation: false,
+      });
       if (res.success) setState((s) => ({ ...s, locked: false }));
-    } catch (e) {}
+    } catch (e) {
+      // Technická chyba ověření (např. aktivita ještě nepřipojená) → radši odemkni,
+      // ať uživatel neuvízne v zamčené appce.
+      setState((s) => ({ ...s, locked: false }));
+    } finally {
+      unlocking.current = false;
+    }
   }
   function toggleSet(k: keyof AppState['toggles']) { setState((s) => ({ ...s, toggles: { ...s.toggles, [k]: !s.toggles[k] } })); }
   function setPayer(n: string) { patch({ addPayer: n }); }
