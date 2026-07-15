@@ -6,7 +6,7 @@ import { FONTS } from '../theme';
 import { useApp } from '../store';
 import { useColors } from '../components/ui';
 
-const EMAIL = 'vojtech.balata@gmail.com';
+const EMAIL = 'podpora@dotacnicek.cz';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const c = useColors();

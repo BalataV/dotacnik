@@ -76,7 +76,7 @@ Projdi všechny položky se zeleným zaškrtnutím:
 3. **App icon:** 512×512 PNG (z `assets/icon.png`).
 4. **Feature graphic:** 1024×500 (export z `store/feature-graphic.svg`).
 5. **Phone screenshots:** min. 2 (viz `store/screenshots-guide.md`).
-6. **App category:** Finance · **Contact email:** vojtech.balata@gmail.com
+6. **App category:** Finance · **Contact email:** podpora@dotacnicek.cz
 
 ---
 

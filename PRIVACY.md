@@ -3,7 +3,7 @@
 _Tento dokument je ŠABLONA, ne hotová právní rada. Před zveřejněním ho nech zkontrolovat právníkem a doplň údaje v hranatých závorkách._
 
 **Poslední aktualizace:** [DATUM]
-**Správce údajů:** [Tvoje jméno / firma], [adresa], e-mail: [tvůj kontaktní e-mail]
+**Správce údajů:** Vojtěch Balata, [adresa], e-mail: podpora@dotacnicek.cz
 
 ## 1. Jaké údaje zpracováváme
 - **Registrační údaje:** e-mailová adresa, případně jméno a profilová fotka z Google účtu (pokud se přihlásíš přes Google).
@@ -29,7 +29,7 @@ Po dobu, kdy máš účet. Po smazání účtu se data odstraní (viz bod 6).
 ## 6. Tvoje práva (GDPR)
 Máš právo na přístup, opravu, výmaz, omezení zpracování, přenositelnost a vznést námitku.
 - **Smazání účtu a všech dat:** přímo v aplikaci → Profil → „Smazat účet a všechna data".
-- Případně nás kontaktuj na [tvůj e-mail]. Můžeš podat stížnost u Úřadu pro ochranu osobních údajů (uoou.cz).
+- Případně nás kontaktuj na podpora@dotacnicek.cz. Můžeš podat stížnost u Úřadu pro ochranu osobních údajů (uoou.cz).
 
 ## 7. Děti
 Aplikace není určena dětem mladším 15 let.
@@ -38,4 +38,4 @@ Aplikace není určena dětem mladším 15 let.
 Tyto zásady můžeme aktualizovat; o podstatných změnách budeme informovat v aplikaci.
 
 ## 9. Kontakt
-[Tvoje jméno], [e-mail].
+Vojtěch Balata, podpora@dotacnicek.cz.

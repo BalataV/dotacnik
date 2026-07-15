@@ -48,5 +48,5 @@ Stahuj, rozděluj, makej. My tam ty peníze máme.
 - Tagy: rozpočet, útraty, skupina, dluhy, cestování
 
 ## Kontakt
-- E-mail vývojáře: vojtech.balata@gmail.com
+- E-mail vývojáře: podpora@dotacnicek.cz
 - Web/Zásady ochrany údajů: https://dotacnicek.cz/privacy.html

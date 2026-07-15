@@ -59,7 +59,8 @@ Vyber **„All or some functionality is restricted"** → **Add new instructions
 ▶ **No**, aplikace neobsahuje reklamy.
 
 ## B4. Content rating
-1. E-mail: `vojtech.balata@gmail.com`
+1. E-mail: `vojtech.balata@gmail.com` *(sem chodí certifikát hodnocení IARC — nech svůj
+   vývojářský/účtový gmail, není to veřejný kontakt; ten je až ve Store listingu níž)*
 2. Kategorie aplikace: **Utility, Productivity, Communication, or Other**
 3. Dotazník – odpovídej pravdivě; pro tuhle appku:
    - Násilí, sex, drogy, hazard, strach: **Ne** u všeho
@@ -158,7 +159,7 @@ Stahuj, rozděluj, makej. My tam ty peníze máme.
 
 ## Kategorizace a kontakt
 - App category: **Finance**
-- Contact email: `vojtech.balata@gmail.com`
+- Contact email: `podpora@dotacnicek.cz`
 
 → **Save**
 
