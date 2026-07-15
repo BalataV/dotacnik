@@ -25,7 +25,7 @@ export default function ShareGroup() {
   async function shareInvite() {
     try {
       await Share.share({
-        message: 'Přidej se do mojí skupiny v appce Dotačník! 🦤\nKód: ' + code + '\nOdkaz: ' + url,
+        message: 'Přidej se do mojí skupiny v appce Dotačníček! 🦤\nKód: ' + code + '\nOdkaz: ' + url,
       });
     } catch (e) {}
   }

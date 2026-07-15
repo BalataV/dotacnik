@@ -2,7 +2,7 @@
 
 ## Název aplikace (max 30 znaků)
 ```
-Dotačník
+Dotačníček
 ```
 
 ## Krátký popis (max 80 znaků)
@@ -12,7 +12,7 @@ Rozdělování útrat ve skupině. Kdo komu dluží? Spočítám to za vás. Sor
 
 ## Celý popis (max 4000 znaků)
 ```
-Dotačník je appka na rozdělování společných útrat – s partou, spolubydlícími, na chatě i na dovolené. Kdo zaplatil pivo, kdo benzín a kdo zase nic? Appka to spočítá za vás. S nadhledem, vtipem a maskotem, který to „nečet, ale podepsal".
+Dotačníček je appka na rozdělování společných útrat – s partou, spolubydlícími, na chatě i na dovolené. Kdo zaplatil pivo, kdo benzín a kdo zase nic? Appka to spočítá za vás. S nadhledem, vtipem a maskotem, který to „nečet, ale podepsal".
 
 🧾 ZAPIŠ VÝDAJ ZA PÁR VTEŘIN
 Přidej, co se utratilo, kdo platil a koho se to týká. Můžeš připojit i fotku účtenky.
@@ -38,7 +38,7 @@ Plus volitelná velikost písma, ať to přečte i strejda bez brýlí.
 🔔 NOTIFIKACE
 Přidá někdo výdaj nebo splatí dluh? Appka dá vědět.
 
-Dotačník je nezávislá satirická aplikace. Maskot i hlášky jsou karikatura, humor a nadsázka. Aplikace není spojena s žádnou politickou stranou, osobou ani institucí, není jimi provozována ani schválena a nevyjadřuje žádná skutková tvrzení o nikom.
+Dotačníček je nezávislá satirická aplikace. Maskot i hlášky jsou karikatura, humor a nadsázka. Aplikace není spojena s žádnou politickou stranou, osobou ani institucí, není jimi provozována ani schválena a nevyjadřuje žádná skutková tvrzení o nikom.
 
 Stahuj, rozděluj, makej. My tam ty peníze máme.
 ```
@@ -49,4 +49,4 @@ Stahuj, rozděluj, makej. My tam ty peníze máme.
 
 ## Kontakt
 - E-mail vývojáře: vojtech.balata@gmail.com
-- Web/Zásady ochrany údajů: https://balatav.github.io/dotacnik/privacy.html
+- Web/Zásady ochrany údajů: https://balatav.github.io/dotacnicek/privacy.html

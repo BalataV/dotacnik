@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dotačník — rozděl útraty bez hádek</title>
-  <meta name="description" content="Dotačník — appka na dělení útrat ve skupinách. Klikni a přidej se do skupiny." />
+  <title>Dotačníček — rozděl útraty bez hádek</title>
+  <meta name="description" content="Dotačníček — appka na dělení útrat ve skupinách. Klikni a přidej se do skupiny." />
 
   <!-- Náhled při sdílení na sociálních sítích / v chatu -->
-  <meta property="og:title" content="Dotačník — přidej se do skupiny" />
+  <meta property="og:title" content="Dotačníček — přidej se do skupiny" />
   <meta property="og:description" content="Někdo tě zve, abys s ním rozdělil útraty. Otevři a přidej se jedním klepnutím." />
   <meta property="og:type" content="website" />
 
@@ -141,13 +141,13 @@
         </div>
 
         <a id="openApp" class="btn btn-primary" href="#">📲 Otevřít v appce</a>
-        <p class="hint">Máš appku Dotačník? Klepni na tlačítko nahoře. Nemáš? Nainstaluj si ji podle kroků dole a kód zadej ručně.</p>
+        <p class="hint">Máš appku Dotačníček? Klepni na tlačítko nahoře. Nemáš? Nainstaluj si ji podle kroků dole a kód zadej ručně.</p>
       </div>
 
       <div class="card">
         <h2 style="font-size:20px; margin-bottom:14px;">Jak se přidat</h2>
         <ol class="steps">
-          <li><span class="num">1</span><span>Nainstaluj si appku <strong>Dotačník</strong> (tlačítko níže).</span></li>
+          <li><span class="num">1</span><span>Nainstaluj si appku <strong>Dotačníček</strong> (tlačítko níže).</span></li>
           <li><span class="num">2</span><span>Otevři appku a dej <strong>Připojit se do skupiny</strong>.</span></li>
           <li><span class="num">3</span><span>Zadej kód <strong id="codeInline">——————</strong> a hotovo.</span></li>
         </ol>
@@ -169,7 +169,7 @@
           <circle cx="48.5" cy="14" r="1.5" fill="#15233B"/>
           <path d="M51 14 L63 11 L52 19 Z" fill="#E4572E" stroke="#15233B" stroke-width="1.5" stroke-linejoin="round"/>
         </svg></div>
-        <h1>Dotačník</h1>
+        <h1>Dotačníček</h1>
         <p class="lead">Rozděl útraty ve skupině bez hádek a bez počítání na ubrousku.</p>
         <a id="playHome" class="btn btn-accent" href="#" target="_blank" rel="noopener" style="margin-top:20px;">▶️ Stáhnout z Google Play</a>
         <a id="webHome" class="btn btn-light" href="#" target="_blank" rel="noopener">🌐 Otevřít webovou verzi (iPhone)</a>
@@ -192,8 +192,8 @@
     // === Odkazy na stažení ===
     // Google Play (Android) + webová verze (iPhone / kdokoli, jde přidat na plochu).
     // Play odkaz začne fungovat, jakmile appku schválí Google Play.
-    var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.balata.dotacnik';
-    var WEB_URL = 'https://balatav.github.io/dotacnik/app/';
+    var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.balata.dotacnicek';
+    var WEB_URL = 'https://balatav.github.io/dotacnicek/app/';
 
     (function () {
       var params = new URLSearchParams(window.location.search);
@@ -214,9 +214,9 @@
         document.getElementById('invite').classList.remove('hidden');
         document.getElementById('codeText').textContent = code;
         document.getElementById('codeInline').textContent = code;
-        // Deep link do appky — appka pozná dotacnik://join/KÓD
-        document.getElementById('openApp').href = 'dotacnik://join/' + code;
-        document.title = 'Pozvánka do skupiny — Dotačník';
+        // Deep link do appky — appka pozná dotacnicek://join/KÓD
+        document.getElementById('openApp').href = 'dotacnicek://join/' + code;
+        document.title = 'Pozvánka do skupiny — Dotačníček';
       } else {
         // Režim ÚVODNÍ STRÁNKA
         document.getElementById('home').classList.remove('hidden');

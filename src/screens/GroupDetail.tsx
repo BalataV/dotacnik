@@ -56,7 +56,7 @@ export default function GroupDetail() {
     if (!g.shareCode) return;
     try {
       await Share.share({
-        message: 'Přidej se do skupiny „' + g.name + '" v appce Dotačník! 🦤\nKód: ' + g.shareCode + '\nOdkaz: ' + landingJoinUrl(g.shareCode),
+        message: 'Přidej se do skupiny „' + g.name + '" v appce Dotačníček! 🦤\nKód: ' + g.shareCode + '\nOdkaz: ' + landingJoinUrl(g.shareCode),
       });
     } catch (e) {}
   }
@@ -112,7 +112,7 @@ export default function GroupDetail() {
           ))}
           {/* patička se značkou */}
           <View style={{ paddingHorizontal: 14, paddingVertical: 8, borderTopWidth: 2, borderTopColor: 'rgba(127,127,127,0.15)', backgroundColor: c.bg2 }}>
-            <Text style={{ fontFamily: FONTS.display600, fontSize: 12, color: c.onbg }}>🦤 Dotačník — kdo komu dluží, spočítám to za vás</Text>
+            <Text style={{ fontFamily: FONTS.display600, fontSize: 12, color: c.onbg }}>🦤 Dotačníček — kdo komu dluží, spočítám to za vás</Text>
           </View>
         </View>
       </View>

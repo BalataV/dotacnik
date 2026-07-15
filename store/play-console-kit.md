@@ -1,4 +1,4 @@
-# 📋 Play Console – copy-paste kit (Dotačník)
+# 📋 Play Console – copy-paste kit (Dotačníček)
 
 Jdi v Play Console odshora dolů. U každého pole je označeno **▶ VLOŽ:** co přesně
 zkopírovat. Citlivé kroky (přihlášení, právní souhlas, publikace) klikáš ty.
@@ -6,7 +6,7 @@ zkopírovat. Citlivé kroky (přihlášení, právní souhlas, publikace) kliká
 Máš hotový **placený Developer účet** ✅. Než začneš, připrav si i zbytek:
 
 ## 0) Co si připravit PŘED vyplňováním
-- [ ] **`.aab` soubor** – stáhni z https://expo.dev → projekt **dotacnik/BabisovnikApp**
+- [ ] **`.aab` soubor** – stáhni z https://expo.dev → projekt **balatav/BabisovnikApp**
       → **Builds** → poslední *production* build → **Download**. Ulož do počítače.
 - [ ] **SQL migrace v Supabase** (jinak appka po instalaci nebude fungovat a recenzent ji zamítne):
       Supabase → SQL editor → spusť `supabase/migration_categories.sql` a `supabase/migration_push.sql`.
@@ -25,7 +25,7 @@ Play Console → **Create app**
 
 | Pole | ▶ VLOŽ / vyber |
 |---|---|
-| App name | `Dotačník` |
+| App name | `Dotačníček` |
 | Default language | **Czech – čeština (Česko)** |
 | App or game | **App** |
 | Free or paid | **Free** |
@@ -40,7 +40,7 @@ Play Console → **Create app**
 ## B1. Privacy policy
 ▶ VLOŽ:
 ```
-https://balatav.github.io/dotacnik/privacy.html
+https://balatav.github.io/dotacnicek/privacy.html
 ```
 
 ## B2. App access
@@ -106,7 +106,7 @@ historie prohlížení, reklamní ID. (Detaily v `store/data-safety.md`.)
 ## App name
 ▶ VLOŽ:
 ```
-Dotačník
+Dotačníček
 ```
 
 ## Short description (max 80 znaků)
@@ -118,7 +118,7 @@ Rozdělování útrat ve skupině. Kdo komu dluží? Spočítám to za vás. Sor
 ## Full description (max 4000 znaků)
 ▶ VLOŽ:
 ```
-Dotačník je appka na rozdělování společných útrat – s partou, spolubydlícími, na chatě i na dovolené. Kdo zaplatil pivo, kdo benzín a kdo zase nic? Appka to spočítá za vás. S nadhledem, vtipem a maskotem, který to „nečet, ale podepsal".
+Dotačníček je appka na rozdělování společných útrat – s partou, spolubydlícími, na chatě i na dovolené. Kdo zaplatil pivo, kdo benzín a kdo zase nic? Appka to spočítá za vás. S nadhledem, vtipem a maskotem, který to „nečet, ale podepsal".
 
 🧾 ZAPIŠ VÝDAJ ZA PÁR VTEŘIN
 Přidej, co se utratilo, kdo platil a koho se to týká. Můžeš připojit i fotku účtenky.
@@ -144,7 +144,7 @@ Plus volitelná velikost písma, ať to přečte i strejda bez brýlí.
 🔔 NOTIFIKACE
 Přidá někdo výdaj nebo splatí dluh? Appka dá vědět.
 
-Dotačník je nezávislá satirická aplikace. Maskot i hlášky jsou karikatura, humor a nadsázka. Aplikace není spojena s žádnou politickou stranou, osobou ani institucí, není jimi provozována ani schválena a nevyjadřuje žádná skutková tvrzení o nikom.
+Dotačníček je nezávislá satirická aplikace. Maskot i hlášky jsou karikatura, humor a nadsázka. Aplikace není spojena s žádnou politickou stranou, osobou ani institucí, není jimi provozována ani schválena a nevyjadřuje žádná skutková tvrzení o nikom.
 
 Stahuj, rozděluj, makej. My tam ty peníze máme.
 ```
@@ -196,7 +196,7 @@ Až bude test OK:
 # FÁZE E – Po odeslání
 - První kontrola Googlem trvá obvykle **pár dní**.
 - Výtky přijdou e-mailem → oprav → nový build (`eas build … --profile production`) → nahraj.
-- Po schválení je Dotačník na Google Play. 🎉
+- Po schválení je Dotačníček na Google Play. 🎉
 
 ---
 

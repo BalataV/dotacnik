@@ -1,7 +1,8 @@
-# Dotačník – kontext aplikace
+# Dotačníček – kontext aplikace
 
 Splitwise-style appka na dělení útrat ve skupinách, s vtipným maskotem (parodie politika-podnikatele).
-Dříve „Babišovník", přejmenováno na **„Dotačník"** kvůli právnímu riziku (viz níže).
+Dříve „Babišovník", přejmenováno na „Dotačník" kvůli právnímu riziku (viz níže) a pak
+na **„Dotačníček"** (2026-07, doména dotacnik.cz byla zabraná).
 
 ## Stack & spuštění
 - **Expo SDK 54** (React Native 0.81, React 19.1), **TypeScript** (strict). NE SDK 56 – Expo Go ho neumí.
@@ -42,13 +43,13 @@ Dříve „Babišovník", přejmenováno na **„Dotačník"** kvůli právnímu
 ## Stav (k 2026-06)
 - Hotovo a ověřeno proti živé DB: registrace/login e-mailem, auto-login, skupiny, výdaje, výpočty, platby, mazání účtu, náhodné hlášky, prázdný start.
 - Backend Supabase projekt `fbhwsrclexkhpbfiwprw`, klíče v `app.json`.
-- **Google OAuth:** kód hotový, ale v Expo Go nespolehlivý (deep-link redirect → padá na localhost). Funguje až v sestavené appce se scheme `dotacnik`. Supabase Redirect URLs: `dotacnik://**`, `exp://**`.
+- **Google OAuth:** kód hotový, ale v Expo Go nespolehlivý (deep-link redirect → padá na localhost). Funguje až v sestavené appce se scheme `dotacnicek`. Supabase Redirect URLs: `dotacnicek://**`, `exp://**`.
 - **GDPR:** `PRIVACY.md` (šablona) + hostovaná verze `docs/privacy.html`. V Profilu odkaz (`PRIVACY_URL` z `src/config.js`) + „Smazat účet". Před vydáním: Confirm email zapnout, Data Safety/Privacy labels formuláře, doplnit adresu do privacy.
-- **Landing page:** `docs/` (GitHub Pages) – `index.html` (úvod + pozvánka přes `?g=KÓD` → deep link `dotacnik://join/KÓD`), `privacy.html`. URL je v `src/config.js` (`LANDING_BASE`). Sdílecí odkaz z appky míří sem. Návod k nasazení + EAS buildu: `NASAZENI.md`.
-- **Build:** `eas.json` hotový (profil `preview` = Android APK, `production` = app-bundle). `app.json` má `android.package`/`ios.bundleIdentifier` = `com.balata.dotacnik`. `eas build:configure` doplní `projectId`.
+- **Landing page:** `docs/` (GitHub Pages) – `index.html` (úvod + pozvánka přes `?g=KÓD` → deep link `dotacnicek://join/KÓD`), `privacy.html`. URL je v `src/config.js` (`LANDING_BASE`). Sdílecí odkaz z appky míří sem. Návod k nasazení + EAS buildu: `NASAZENI.md`.
+- **Build:** `eas.json` hotový (profil `preview` = Android APK, `production` = app-bundle). `app.json` má `android.package`/`ios.bundleIdentifier` = `com.balata.dotacnicek`. `eas build:configure` doplní `projectId`.
 
 ## Právní (důležité)
-- Appka paroduje žijící veřejnou osobu (maskot + hlášky). Přejmenování na „Dotačník" sneslo příjmení z názvu, ale maskot + poznatelné hlášky stále nesou riziko (ochrana osobnosti §81+ obč. zák., stažení z obchodů za impersonaci). Před veřejným vydáním nechat schválit advokátem.
+- Appka paroduje žijící veřejnou osobu (maskot + hlášky). Přejmenování na „Dotačníček" sneslo příjmení z názvu, ale maskot + poznatelné hlášky stále nesou riziko (ochrana osobnosti §81+ obč. zák., stažení z obchodů za impersonaci). Před veřejným vydáním nechat schválit advokátem.
 
 ## Zbývá
 Dokončit Google v buildu, vydání do obchodů. Analýza: `ANALYZA.md`.
@@ -72,12 +73,12 @@ Dokončit Google v buildu, vydání do obchodů. Analýza: `ANALYZA.md`.
 - **Store materiály:** složka `store/` (listing CS/EN, data-safety, release notes, feature graphic SVG, ikona `app-icon.svg` + `icon-prompt.md`, návod na publikaci `publishing-guide.md`).
 
 ## Přejmenování + druhá vlna (2026-07)
-- **Název:** „Dotačník" (dřív Čapí Dluh/Babišovník). Scheme `dotacnik`, package/bundle `com.balata.dotacnik`. POZOR: slug `BabisovnikApp` a AsyncStorage klíče `@babisovnik/*` zůstávají (EAS projectId / lokální nastavení uživatelů).
+- **Název:** „Dotačníček" (dřív Čapí Dluh/Babišovník/Dotačník). Scheme `dotacnicek`, package/bundle `com.balata.dotacnicek`. POZOR: slug `BabisovnikApp` a AsyncStorage klíče `@babisovnik/*` zůstávají (EAS projectId / lokální nastavení uživatelů).
 - **Biometrický zámek:** `expo-local-authentication` (plugin v app.json, NOVÝ BUILD). `state.bioLock/bioAvailable/locked`, přepínač v Profilu (jen se zapnutou biometrikou na zařízení), zámek při startu a odchodu do pozadí, `LockScreen` v Root.
 - **Vyhledávání ve výdajích:** GroupDetail, pole od 4+ výdajů, bez diakritiky (`foldText`), hledá popis/plátce/kategorii.
 - **Oprava textScale:** škálování upravuje VSTUPNÍ props (style pole), ne výsledek renderu – jedině tak funguje na nativní platformě i webu. Ověřeno: 38→45px (large), 38→34px (small).
 - **Hardening:** maxLength na všech vstupech, autoComplete/textContentType u e-mailu a hesel.
-- **Web verze (iOS uživatelé):** `npx expo export --platform web --output-dir docs/app`, `experiments.baseUrl = "/dotacnik/app"` v app.json → hostuje se na GitHub Pages vedle landingu (`https://balatav.github.io/dotacnik/app/`).
+- **Web verze (iOS uživatelé):** `npx expo export --platform web --output-dir docs/app`, `experiments.baseUrl = "/dotacnicek/app"` v app.json → hostuje se na GitHub Pages vedle landingu (`https://balatav.github.io/dotacnicek/app/`).
 - **App Store (iOS nativně):** návod `store/app-store-guide.md`, screenshoty `store/screenshots-ios/` (1290×2796). V app.json: `supportsTablet:false`, `usesNonExemptEncryption:false`. **Google login je na nativním iOS skrytý** (AuthScreens, guideline 4.8 — jinak by Apple vyžadoval Sign in with Apple; případné doplnění = expo-apple-authentication + Apple provider v Supabase). Store screenshoty (Android i iOS) se generují ze `shots.html` (scratchpad, headless Chrome; parametry `?s=1..5&w=&h=`).
 
 ## Výkon / UX / testy (2026-06)

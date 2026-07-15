@@ -33,10 +33,10 @@ export function Onboarding() {
           <Text style={{ fontFamily: FONTS.display600, fontSize: 22, color: c.ink }}>Čau lidi!</Text>
         </View>
       </View>
-      <Pressable onPress={actions.pokeMascot} accessibilityRole="image" accessibilityLabel="Maskot Dotačníku">
+      <Pressable onPress={actions.pokeMascot} accessibilityRole="image" accessibilityLabel="Maskot Dotačníčku">
         <Mascot size={130} float />
       </Pressable>
-      <Text style={{ fontFamily: FONTS.display700, fontSize: 38, color: c.onbg, marginTop: 14, marginBottom: 6, letterSpacing: -1 }}>Dotačník</Text>
+      <Text style={{ fontFamily: FONTS.display700, fontSize: 38, color: c.onbg, marginTop: 14, marginBottom: 6, letterSpacing: -1 }}>Dotačníček</Text>
       <Text style={{ color: c.onbg, opacity: 0.85, fontFamily: FONTS.body700, fontSize: 14, maxWidth: 240, textAlign: 'center', marginBottom: 28, lineHeight: 20 }}>
         Kdo komu dluží? Spočítám to za vás. Sorry jako.
       </Text>

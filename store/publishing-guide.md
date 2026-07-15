@@ -1,4 +1,4 @@
-# Návod: vydání Dotačníku na Google Play (krok za krokem)
+# Návod: vydání Dotačníčku na Google Play (krok za krokem)
 
 Pro úplného začátečníka. Postupuj odshora dolů. Většinu uděláš jednou.
 
@@ -44,7 +44,7 @@ Z adresáře `BabisovnikApp`:
 
 ## FÁZE 2 – Založ aplikaci v Play Console
 1. Otevři https://play.google.com/console → **Create app**.
-2. Vyplň: název **Dotačník**, jazyk **čeština**, typ **App**, zdarma **Free**.
+2. Vyplň: název **Dotačníček**, jazyk **čeština**, typ **App**, zdarma **Free**.
 3. Odsouhlas prohlášení (Developer Program Policies, US export laws).
 
 ---
@@ -53,7 +53,7 @@ Z adresáře `BabisovnikApp`:
 Projdi všechny položky se zeleným zaškrtnutím:
 
 1. **Privacy policy** → vlož URL:
-   `https://balatav.github.io/dotacnik/privacy.html`
+   `https://balatav.github.io/dotacnicek/privacy.html`
 2. **App access** → appka **vyžaduje přihlášení**, takže musíš dát recenzentům
    **testovací účet**: vyber „All or some functionality is restricted" a zadej
    testovací e-mail + heslo (založ si v appce jeden účet jen pro Google).
@@ -70,7 +70,7 @@ Projdi všechny položky se zeleným zaškrtnutím:
 ---
 
 ## FÁZE 4 – Store listing (levé menu „Main store listing")
-1. **App name:** Dotačník
+1. **App name:** Dotačníček
 2. **Short / Full description:** zkopíruj ze `store/listing-cs.md`
    (volitelně přidej angličtinu z `store/listing-en.md` přes „Manage translations").
 3. **App icon:** 512×512 PNG (z `assets/icon.png`).

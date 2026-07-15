@@ -128,7 +128,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Kurzy měn pro orientační přepočet (cache + čerstvé na pozadí)
       loadRates().then((r) => { if (r) setState((s) => ({ ...s, fxRates: r })); }).catch(() => {});
 
-      // Pozvánka z odkazu (dotacnik://join/KÓD) – zachytíme i při startu
+      // Pozvánka z odkazu (dotacnicek://join/KÓD) – zachytíme i při startu
       try {
         const initialUrl = await Linking.getInitialURL();
         const code = parseJoinCode(initialUrl);
@@ -670,7 +670,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Nemá čím ověřit (biometrika zrušená) → nenech uživatele zamčeného
       if (!hw || !enrolled) { setState((s) => ({ ...s, locked: false })); return; }
       const res = await LocalAuth.authenticateAsync({
-        promptMessage: 'Odemkni Dotačník',
+        promptMessage: 'Odemkni Dotačníček',
         cancelLabel: 'Zrušit',
         disableDeviceFallback: false, // povol i PIN/gesto zařízení
         requireConfirmation: false,

@@ -1,4 +1,4 @@
-# Zásady ochrany osobních údajů – Dotačník
+# Zásady ochrany osobních údajů – Dotačníček
 
 _Tento dokument je ŠABLONA, ne hotová právní rada. Před zveřejněním ho nech zkontrolovat právníkem a doplň údaje v hranatých závorkách._
 

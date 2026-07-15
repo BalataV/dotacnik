@@ -156,9 +156,9 @@ export default function Root() {
         {showChrome && (
           <View style={{ backgroundColor: c.card, borderBottomWidth: 3, borderBottomColor: c.ink, zIndex: 6 }}>
             <View style={{ width: '100%', maxWidth: MAX_W, alignSelf: 'center', paddingHorizontal: 16, paddingTop: 13, paddingBottom: 14 }}>
-              <Text style={{ fontFamily: FONTS.display700, fontSize: 23, color: c.ink, letterSpacing: -0.6 }}>Dotačník</Text>
+              <Text style={{ fontFamily: FONTS.display700, fontSize: 23, color: c.ink, letterSpacing: -0.6 }}>Dotačníček</Text>
               <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10, marginTop: 11 }}>
-                <Pressable onPress={actions.pokeMascot} accessibilityRole="image" accessibilityLabel="Maskot Dotačníku">
+                <Pressable onPress={actions.pokeMascot} accessibilityRole="image" accessibilityLabel="Maskot Dotačníčku">
                   <Mascot size={56} alt={isAltQuip(state.bubble)} mood={state.mascotMood} />
                 </Pressable>
                 <SpeechBubble key={state.bubbleKey} text={state.bubble} />

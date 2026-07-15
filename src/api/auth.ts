@@ -35,7 +35,7 @@ export function onAuthChange(callback: (session: any) => void) {
 //  - NATIVNÍ: bezpečné okno prohlížeče (WebBrowser) + ruční výměna kódu za session.
 export async function signInWithGoogle() {
   if (Platform.OS === 'web') {
-    // Vrátit se přesně na tuto stránku (i s podadresářem /dotacnik/app/)
+    // Vrátit se přesně na tuto stránku (i s podadresářem /dotacnicek/app/)
     const redirectTo = window.location.origin + window.location.pathname;
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
     if (error) throw error;

@@ -2,7 +2,7 @@
 
 ## App name (max 30 chars)
 ```
-Dotačník – Split Bills
+Dotačníček – Split Bills
 ```
 
 ## Short description (max 80 chars)
@@ -12,7 +12,7 @@ Split shared expenses with friends. Who owes whom? The app does the math.
 
 ## Full description (max 4000 chars)
 ```
-Dotačník is a playful expense-splitting app for groups – friends, roommates, trips, and holidays. Who paid for the beer, who for the gas, and who got away with nothing? The app does the math for you, with a sense of humor and a mascot who "didn't read it but signed it anyway."
+Dotačníček is a playful expense-splitting app for groups – friends, roommates, trips, and holidays. Who paid for the beer, who for the gas, and who got away with nothing? The app does the math for you, with a sense of humor and a mascot who "didn't read it but signed it anyway."
 
 🧾 LOG AN EXPENSE IN SECONDS
 Add what was spent, who paid, and who it's for. Attach a receipt photo if you like.
@@ -38,7 +38,7 @@ Plus an adjustable content size for comfortable reading.
 🔔 NOTIFICATIONS
 Someone added an expense or settled a debt? You'll know.
 
-Dotačník is an independent satirical app. The mascot and quips are caricature, humor and hyperbole. The app is not affiliated with, operated by, or endorsed by any political party, person, or institution, and makes no factual claims about anyone.
+Dotačníček is an independent satirical app. The mascot and quips are caricature, humor and hyperbole. The app is not affiliated with, operated by, or endorsed by any political party, person, or institution, and makes no factual claims about anyone.
 
 Download, split, and let the app keep score.
 ```

@@ -1,4 +1,4 @@
-# 🍎 Návod: vydání Dotačníku na Apple App Store (krok za krokem)
+# 🍎 Návod: vydání Dotačníčku na Apple App Store (krok za krokem)
 
 Pro úplného začátečníka, z Windows (build běží v cloudu EAS, Mac nepotřebuješ).
 Postupuj odshora dolů.
@@ -6,7 +6,7 @@ Postupuj odshora dolů.
 > **Srovnání s Googlem:** Google Play = 25 USD jednorázově. Apple = **99 USD ročně**
 > (Apple Developer Program). Bez toho na App Store nelze publikovat — žádná výjimka.
 > Zdarma alternativa pro iPhone uživatele zůstává webová verze:
-> https://balatav.github.io/dotacnik/app/
+> https://balatav.github.io/dotacnicek/app/
 
 ---
 
@@ -38,7 +38,7 @@ eas build --platform ios --profile production
 - Na otázky ohledně **certifikátů, provisioning profilu a push klíče (APNs)**
   odpovídej **Yes / Generate** — EAS vše vytvoří a spravuje za tebe.
   (Push klíč je nutný, aby fungovaly notifikace.)
-- Bundle ID `com.balata.dotacnik` EAS zaregistruje automaticky.
+- Bundle ID `com.balata.dotacnicek` EAS zaregistruje automaticky.
 - Build trvá ~15–30 min. Výsledek je `.ipa` (nemusíš stahovat — nahraje se přímo, viz Fáze 2).
 
 **Poznámky ke kódu (už hotové, jen pro info):**
@@ -59,10 +59,10 @@ eas build --platform ios --profile production
    | Pole | Hodnota |
    |---|---|
    | Platforms | **iOS** |
-   | Name | **Dotačník** |
+   | Name | **Dotačníček** |
    | Primary Language | **Czech** |
-   | Bundle ID | **com.balata.dotacnik** (vyber ze seznamu — vytvořil ho EAS build) |
-   | SKU | `dotacnik` |
+   | Bundle ID | **com.balata.dotacnicek** (vyber ze seznamu — vytvořil ho EAS build) |
+   | SKU | `dotacnicek` |
    | User Access | Full Access |
 
 3. Nahraj build do App Store Connect:
@@ -77,7 +77,7 @@ eas submit --platform ios --latest
 1. V App Store Connect → **TestFlight** → build se objeví po ~10–30 min zpracování.
 2. Do **Internal Testing** přidej sám sebe (svůj Apple ID e-mail).
 3. Na iPhone si nainstaluj appku **TestFlight** z App Store → přijde ti pozvánka
-   → nainstaluj Dotačník a projdi: registrace, skupina, výdaj, notifikace,
+   → nainstaluj Dotačníček a projdi: registrace, skupina, výdaj, notifikace,
    biometrický zámek (Face ID hláška), tmavý režim.
 
 ---
@@ -91,8 +91,8 @@ V App Store Connect → tvá appka → **App Store** (levé menu) → verze 1.0:
 | Promotional Text (volitelné) | `Kdo komu dluží? Spočítám to za vás. Sorry jako.` |
 | Description | zkopíruj **úplný popis** ze `store/listing-cs.md` (stejný jako pro Google) |
 | Keywords | `dluhy,útraty,skupina,splitwise,výdaje,parta,vyrovnání,účty,dovolená,spolubydlící` |
-| Support URL | `https://balatav.github.io/dotacnik/` |
-| Marketing URL (volitelné) | `https://balatav.github.io/dotacnik/` |
+| Support URL | `https://balatav.github.io/dotacnicek/` |
+| Marketing URL (volitelné) | `https://balatav.github.io/dotacnicek/` |
 
 ### Screenshoty
 - **iPhone 6,9"**: nahraj 5 souborů ze `store/screenshots-ios/` (1290×2796) —
@@ -100,7 +100,7 @@ V App Store Connect → tvá appka → **App Store** (levé menu) → verze 1.0:
 - iPad sekce se nezobrazí (máme `supportsTablet: false`). ✓
 
 ### App Privacy (obdoba Data safety u Googlu)
-**Privacy Policy URL:** `https://balatav.github.io/dotacnik/privacy.html`
+**Privacy Policy URL:** `https://balatav.github.io/dotacnicek/privacy.html`
 
 Klikni **Get Started** u App Privacy a deklaruj (mapování z `store/data-safety.md`):
 
@@ -128,7 +128,7 @@ Klikni **Get Started** u App Privacy a deklaruj (mapování z `store/data-safety
   e-mail + heslo účtu, který sis založil pro Google Play recenzenty (stejný funguje).
 - **Notes** — vlož (anglicky, ať tomu recenzent rozumí):
   ```
-  Dotacnik is a Czech expense-splitting app for groups (like Splitwise).
+  Dotacnicek is a Czech expense-splitting app for groups (like Splitwise).
   The mascot is a fictional satirical caricature; the app contains mild
   political satire/parody clearly presented as humor. It does not reference
   any real person by name, does not make factual claims, and includes a

@@ -51,7 +51,7 @@ export default function Smlouva() {
     `Skupina: ${groupName}\n\n` +
     `Příjemce se zavazuje neprodleně uhradit poskytovateli nevratnou dotaci ve výši ${amount}.\n` +
     `Při nesplnění bude příjemce úředně označen za Černého pasažéra.\n\n` +
-    `Sorry jako. — Dotačník`;
+    `Sorry jako. — Dotačníček`;
 
   async function share() {
     try { await Share.share({ message: text }); } catch (e) {}

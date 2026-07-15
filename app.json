@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Dotačník",
+    "name": "Dotačníček",
     "slug": "BabisovnikApp",
-    "scheme": "dotacnik",
+    "scheme": "dotacnicek",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,13 +10,13 @@
     "backgroundColor": "#FFD60A",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.balata.dotacnik",
+      "bundleIdentifier": "com.balata.dotacnicek",
       "config": {
         "usesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.balata.dotacnik",
+      "package": "com.balata.dotacnicek",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -40,8 +40,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Dotačník potřebuje přístup k fotkám, abys mohl přidat účtenku k výdaji.",
-          "cameraPermission": "Dotačník potřebuje přístup k fotoaparátu, abys mohl vyfotit účtenku.",
+          "photosPermission": "Dotačníček potřebuje přístup k fotkám, abys mohl přidat účtenku k výdaji.",
+          "cameraPermission": "Dotačníček potřebuje přístup k fotoaparátu, abys mohl vyfotit účtenku.",
           "microphonePermission": false
         }
       ],
@@ -55,12 +55,12 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Dotačník používá Face ID k odemknutí aplikace."
+          "faceIDPermission": "Dotačníček používá Face ID k odemknutí aplikace."
         }
       ]
     ],
     "experiments": {
-      "baseUrl": "/dotacnik/app"
+      "baseUrl": "/dotacnicek/app"
     },
     "runtimeVersion": {
       "policy": "appVersion"

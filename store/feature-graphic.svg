@@ -25,7 +25,7 @@
     </g>
 
     <!-- titul -->
-    <text x="60" y="250" font-family="Arial, sans-serif" font-size="86" font-weight="800" fill="#15233B" letter-spacing="-2">Dotačník</text>
+    <text x="60" y="250" font-family="Arial, sans-serif" font-size="86" font-weight="800" fill="#15233B" letter-spacing="-2">Dotačníček</text>
 
     <!-- tagline -->
     <text x="64" y="305" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#15233B">Kdo komu dluží? Spočítám to za vás.</text>

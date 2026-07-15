@@ -1,4 +1,4 @@
-# Analýza aplikace Dotačník + návrhy na zlepšení
+# Analýza aplikace Dotačníček + návrhy na zlepšení
 
 Stav k 2026-06-22. Hodnoceno podle best practices mobilních appek (UX, spolehlivost,
 bezpečnost, výkon, připravenost do obchodů). Seřazeno podle priority.
