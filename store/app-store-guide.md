@@ -78,7 +78,7 @@ eas submit --platform ios --latest
 2. Do **Internal Testing** přidej sám sebe (svůj Apple ID e-mail).
 3. Na iPhone si nainstaluj appku **TestFlight** z App Store → přijde ti pozvánka
    → nainstaluj Dotačníček a projdi: registrace, skupina, výdaj, notifikace,
-   biometrický zámek (Face ID hláška), tmavý režim.
+   tmavý režim.
 
 ---
 

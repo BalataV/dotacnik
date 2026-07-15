@@ -1,6 +1,6 @@
 // Výpočet bilancí a optimalizace vyrovnání dluhů
 // "Já" = aktuálně přihlášený uživatel (v cloudu se na "Já" mapuje podle účtu)
-import { QUIPS_OWE, QUIPS_OWED, QUIPS_EVEN } from './quips';
+import { QUIPS } from './quips';
 import type { Group, Expense, Payment, Transfer, MoneyMap, ScreenName, AppState } from './types';
 
 type ExpenseList = Expense[] | undefined;
@@ -139,18 +139,12 @@ function pick<T>(arr: T[]): T {
 }
 
 // Hláška maskota v bublině. Úvodní obrazovka má pevné "Čau lidi!".
-// Jinde se losuje ze sady podle bilance: dlužím / mám dostat / vyrovnaný.
+// Jinde se losuje náhodně z jednoho společného poolu (bez ohledu na bilanci).
 let _lastBubble: string | null = null;
-export function bubbleFor(state: Partial<AppState>, screen: ScreenName): string {
+export function bubbleFor(_state: Partial<AppState>, screen: ScreenName): string {
   if (screen === 'onboarding') return 'Čau lidi!';
-  const groups = state.groups || [];
-  const expenses = state.expenses || {};
-  const payments = state.payments || {};
-  let pool = QUIPS_EVEN;
-  if (hasAny(totalOwe(groups, expenses, payments))) pool = QUIPS_OWE;        // dlužím
-  else if (hasAny(totalOwed(groups, expenses, payments))) pool = QUIPS_OWED; // mám dostat
-  let q = pick(pool);
-  for (let i = 0; i < 6 && q.text === _lastBubble; i++) q = pick(pool); // ať se neopakuje hned po sobě
+  let q = pick(QUIPS);
+  for (let i = 0; i < 6 && q.text === _lastBubble; i++) q = pick(QUIPS); // ať se neopakuje hned po sobě
   _lastBubble = q.text;
   return q.text;
 }

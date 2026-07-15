@@ -134,9 +134,6 @@ export default function Profile() {
               })}
             </View>
           </View>
-          {state.bioAvailable && (
-            <Toggle label="Odemykat otiskem / obličejem" value={state.bioLock} onPress={() => actions.setBioLock(!state.bioLock)} />
-          )}
           <Toggle label="Chceš dostávat novinky z MF DNES" value={state.toggles.notif} onPress={() => actions.toggleSet('notif')} />
         </View>
       </View>

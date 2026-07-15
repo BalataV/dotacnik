@@ -52,26 +52,6 @@ function SpeechBubble({ text }: { text: string }) {
   );
 }
 
-// Zamčená appka – překryje vše, odemyká se biometrikou (auto-pokus hned po zobrazení)
-function LockScreen({ onUnlock }: { onUnlock: () => void }) {
-  const c = useColors();
-  // Malé zpoždění: po návratu z pozadí musí být na Androidu aktivita připravená,
-  // jinak biometrický prompt selže. Klepnutí na tlačítko funguje kdykoliv.
-  useEffect(() => { const t = setTimeout(onUnlock, 400); return () => clearTimeout(t); }, []);
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, backgroundColor: c.bg }}>
-      <Mascot size={110} />
-      <Text style={{ fontFamily: FONTS.display700, fontSize: 24, color: c.onbg, marginTop: 16 }}>Zamčeno</Text>
-      <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.7, marginTop: 6, marginBottom: 24, textAlign: 'center', maxWidth: 260 }}>
-        Tohle je tajné jako svazek. Odemkni se.
-      </Text>
-      <Pressable onPress={onUnlock} accessibilityRole="button" accessibilityLabel="Odemknout aplikaci" style={{ backgroundColor: c.accent, borderWidth: 3, borderColor: c.ink, borderRadius: 14, paddingVertical: 14, paddingHorizontal: 36 }}>
-        <Text style={{ fontFamily: FONTS.display600, fontSize: 17, color: '#fff' }}>🔓 Odemknout</Text>
-      </Pressable>
-    </View>
-  );
-}
-
 function NavItem({ active, color, label, icon, onPress }: { active?: boolean; color: string; label: string; icon: (color: string) => React.ReactNode; onPress: () => void }) {
   return (
     <Pressable
@@ -120,16 +100,6 @@ export default function Root() {
   const { state, actions } = useApp();
   const sc = state.screen;
   const showChrome = sc !== 'onboarding' && sc !== 'register_email' && sc !== 'login';
-
-  // Biometrický zámek má přednost přede vším
-  if (state.locked) {
-    return (
-      <View style={{ flex: 1, backgroundColor: c.bg, paddingTop: insets.top }}>
-        <LockScreen onUnlock={actions.unlockApp} />
-        <StatusBar barStyle={isDarkColor(c.bg) ? 'light-content' : 'dark-content'} />
-      </View>
-    );
-  }
 
   let Screen = null;
   if (sc === 'onboarding') Screen = <Onboarding />;

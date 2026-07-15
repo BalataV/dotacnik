@@ -1,14 +1,14 @@
-// Hlášky maskota. Vybírají se podle toho, jestli uživatel dluží / má dostat / je vyrovnaný.
-// Hláška s `alt: true` patří druhé postavě (karikatura ministryně financí) – v hlavičce
-// se u ní pak ukáže druhá karikatura. Obecné hlášky (níže) se objevují ve všech stavech.
+// Hlášky maskota – JEDEN společný pool, losují se náhodně bez ohledu na to,
+// jestli uživatel dluží nebo ne. Hláška s `alt: true` patří druhé postavě
+// (karikatura ministryně financí) – v hlavičce se u ní ukáže druhá karikatura.
+// Úvodní obrazovka má pevné „Čau lidi!" (řeší bubbleFor v logic.ts).
 
 export interface Quip {
   text: string;
   alt?: boolean; // true = druhá karikatura (ministryně financí)
 }
 
-// Obecné hlášky – parodie (jména zkomolená), objevují se v každém stavu.
-const GENERAL: Quip[] = [
+export const QUIPS: Quip[] = [
   { text: 'Sorry jako.' },
   { text: 'Je to kampaň! Účelovka!' },
   { text: 'Nikdy neodstoupím! Nikdy!' },
@@ -60,16 +60,27 @@ const GENERAL: Quip[] = [
   { text: 'Zapiš to, ať je klid.' },
   { text: 'Co bych za to dal.' },
   { text: 'Ty pacholku, zaplať ten dluh!' },
-];
-
-// Uživatel DLUŽÍ
-const OWE_SPECIFIC: Quip[] = [
   { text: 'Schodek nevadí, to jsou všechno investice.' },
   { text: 'Za všechno může Koloušek.' },
   { text: 'To je polistopadový kartel.' },
   { text: 'Vy tady normálně lžete.' },
   { text: 'Je to účelovka a kampaň.' },
   { text: 'Nebuď jak Koloušek a zaplať.' },
+  { text: 'Dali jsme lidem peníze, přidali jsme důchodcům.' },
+  { text: 'Kde jsou ty prachy?' },
+  { text: 'Já už mám vyděláno, já ty peníze nepotřebuju.' },
+  { text: 'Všichni tady kradli.' },
+  { text: 'Vždyť já těm lidem pomáhám, já pro ně dýchám.' },
+  { text: 'Zacvakej to a bude líp.' },
+  { text: 'Nestyďte se, řekněte jméno.' },
+  { text: 'Rozpočet je skvělý, my tam ty peníze máme.' },
+  { text: 'Já to řídím jako firmu.' },
+  { text: 'Makáme.' },
+  { text: 'Já jsem mikromanažer, já to musím řídit.' },
+  { text: 'Já tu zemi zachránil.' },
+  { text: 'Best in covid.' },
+  { text: 'We will see.' },
+  // ——— druhá karikatura (ministryně financí) ———
   { text: 'Je to asociální paskvil!', alt: true },
   { text: 'Kde na to proboha vezmete?', alt: true },
   { text: 'Fialova drahota ničí naše občany.', alt: true },
@@ -79,44 +90,17 @@ const OWE_SPECIFIC: Quip[] = [
   { text: 'Váš konsolidační balíček je jen daňové peklo.', alt: true },
   { text: 'Vy prostě jenom neumíte vybírat daně.', alt: true },
   { text: 'Zadlužíte naše děti a vnuky!', alt: true },
-];
-
-// Uživatel má naopak DOSTAT
-const OWED_SPECIFIC: Quip[] = [
-  { text: 'Dali jsme lidem peníze, přidali jsme důchodcům.' },
-  { text: 'Kde jsou ty prachy?' },
-  { text: 'Já už mám vyděláno, já ty peníze nepotřebuju.' },
-  { text: 'Všichni tady kradli.' },
-  { text: 'Vždyť já těm lidem pomáhám, já pro ně dýchám.' },
-  { text: 'Sorry jako.' },
-  { text: 'Zacvakej to a bude líp.' },
-  { text: 'Nestyďte se, řekněte jméno.' },
   { text: 'Peníze se musí napumpovat do ekonomiky.', alt: true },
   { text: 'My jsme ty peníze lidem dali.', alt: true },
   { text: 'Naše vláda nikdy nedopustila, aby lidé padli na dno.', alt: true },
   { text: 'Za nás se lidé měli podstatně líp.', alt: true },
   { text: 'Já jsem státní kasu předávala ve výborné kondici.', alt: true },
   { text: 'Máme to spočítané do posledního haléře.', alt: true },
-];
-
-// Uživatel je VYROVNANÝ
-const EVEN_SPECIFIC: Quip[] = [
-  { text: 'Rozpočet je skvělý, my tam ty peníze máme.' },
-  { text: 'Já to řídím jako firmu.' },
-  { text: 'Makáme.' },
-  { text: 'Já jsem mikromanažer, já to musím řídit.' },
-  { text: 'Já tu zemi zachránil.' },
-  { text: 'Best in covid.' },
-  { text: 'We will see.' },
   { text: 'Musíte lidem okamžitě pomoct.', alt: true },
   { text: 'Já se anglicky učím poctivě a velmi intenzivně.', alt: true },
   { text: 'My na to máme zpracované podrobné analýzy.', alt: true },
   { text: 'Já to absolutně odmítám, je to vytržené z kontextu.', alt: true },
 ];
-
-export const QUIPS_OWE: Quip[] = [...OWE_SPECIFIC, ...GENERAL];
-export const QUIPS_OWED: Quip[] = [...OWED_SPECIFIC, ...GENERAL];
-export const QUIPS_EVEN: Quip[] = [...EVEN_SPECIFIC, ...GENERAL];
 
 // Easter egg – hlášky po pěti rychlých šťouchnutích do maskota.
 export const QUIPS_EGG: string[] = [
@@ -128,9 +112,7 @@ export const QUIPS_EGG: string[] = [
 ];
 
 // Texty, u kterých se má ukázat druhá karikatura (ministryně financí).
-const ALT_TEXTS = new Set<string>(
-  [...OWE_SPECIFIC, ...OWED_SPECIFIC, ...EVEN_SPECIFIC].filter((q) => q.alt).map((q) => q.text),
-);
+const ALT_TEXTS = new Set<string>(QUIPS.filter((q) => q.alt).map((q) => q.text));
 
 export function isAltQuip(text: string): boolean {
   return ALT_TEXTS.has(text);

@@ -75,7 +75,9 @@ Dokončit Google v buildu, vydání do obchodů. Analýza: `ANALYZA.md`.
 
 ## Přejmenování + druhá vlna (2026-07)
 - **Název:** „Dotačníček" (dřív Čapí Dluh/Babišovník/Dotačník). Scheme `dotacnicek`, Android package `com.balata.dotacnik` (zamčený, viz Build výš), iOS bundle `com.balata.dotacnicek`. Web: vlastní doména **dotacnicek.cz** (GitHub Pages + CNAME, e-mail u Zoneru — MX záznamy v DNS nechat). POZOR: slug `BabisovnikApp` a AsyncStorage klíče `@babisovnik/*` zůstávají (EAS projectId / lokální nastavení uživatelů).
-- **Biometrický zámek:** `expo-local-authentication` (plugin v app.json, NOVÝ BUILD). `state.bioLock/bioAvailable/locked`, přepínač v Profilu (jen se zapnutou biometrikou na zařízení), zámek při startu a odchodu do pozadí, `LockScreen` v Root.
+- **Biometrický zámek: ODSTRANĚN (2026-07-15).** Uživateli vadilo odemykání při každém přepnutí aplikací. Vyhozen kód (bioLock/locked/LockScreen), plugin z app.json i balíček `expo-local-authentication`. NEVRACET bez výslovného přání.
+- **Splash screen:** `expo-splash-screen` plugin s maskotem (`assets/splash-icon.png` = kopie android-icon-foreground) na žluté `#FFD60A`; dřív tam byl výchozí Expo zástupný obrázek. Nativní změna = nový build.
+- **Hlášky:** JEDEN společný pool `QUIPS` v `quips.ts` (2026-07-15, dřív sady podle bilance OWE/OWED/EVEN — zrušeno na přání uživatele). `bubbleFor` losuje ze všech; `alt:true` = druhá karikatura; `QUIPS_EGG` easter egg zůstává.
 - **Vyhledávání ve výdajích:** GroupDetail, pole od 4+ výdajů, bez diakritiky (`foldText`), hledá popis/plátce/kategorii.
 - **Oprava textScale:** škálování upravuje VSTUPNÍ props (style pole), ne výsledek renderu – jedině tak funguje na nativní platformě i webu. Ověřeno: 38→45px (large), 38→34px (small).
 - **Hardening:** maxLength na všech vstupech, autoComplete/textContentType u e-mailu a hesel.

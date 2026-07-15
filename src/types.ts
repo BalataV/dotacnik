@@ -87,9 +87,6 @@ export interface AppState {
   userTheme: ThemeName;
   contentSize: ContentSize;
   toggles: Toggles;
-  bioAvailable: boolean; // má zařízení biometriku (a je nastavená)?
-  bioLock: boolean;      // uživatel zapnul zamykání appky
-  locked: boolean;       // appka je právě zamčená (čeká na odemknutí)
   regEmail: string;
   regPassword: string;
   loginEmail: string;
@@ -133,8 +130,6 @@ export interface Actions {
   pokeMascot: () => void;
   setTheme: (t: ThemeName) => void;
   setContentSize: (s: ContentSize) => void;
-  setBioLock: (v: boolean) => void;
-  unlockApp: () => void;
   toggleSet: (k: keyof Toggles) => void;
   setPayer: (n: string) => void;
   togglePart: (n: string) => void;

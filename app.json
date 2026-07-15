@@ -36,7 +36,15 @@
     },
     "plugins": [
       "expo-font",
-      "expo-splash-screen",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FFD60A"
+        }
+      ],
       [
         "expo-image-picker",
         {
@@ -50,12 +58,6 @@
         "expo-notifications",
         {
           "color": "#FFD60A"
-        }
-      ],
-      [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "Dotačníček používá Face ID k odemknutí aplikace."
         }
       ]
     ],

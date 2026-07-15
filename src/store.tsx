@@ -3,7 +3,6 @@
 //  - lokální: data jen v telefonu (AsyncStorage), když nejsou klíče
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from 'react';
 import { BackHandler, AppState as RNAppState, Platform } from 'react-native';
-import * as LocalAuth from 'expo-local-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Linking from 'expo-linking';
 import { INITIAL_GROUPS, INITIAL_EXPENSES } from './data';
@@ -49,9 +48,6 @@ function makeInitialState(): AppState {
     userTheme: 'zluta',
     contentSize: 'medium',
     toggles: { notif: true, sound: false },
-    bioAvailable: false,
-    bioLock: false,
-    locked: false,
     regEmail: '', regPassword: '',
     loginEmail: '', loginPassword: '',
     resetPass: '',
@@ -81,7 +77,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const moodTimer = useRef<any>(null);
   const pokeCount = useRef(0);       // easter egg: počítadlo šťouchnutí do maskota
   const pokeTimer = useRef<any>(null);
-  const unlocking = useRef(false);   // právě probíhá biometrické odemykání (proti souběhu)
   const loaded = useRef(false);
   const meRef = useRef<{ uid: string; myName: string } | null>(null); // spolehlivé čtení v async akcích
   const pendingJoin = useRef<string | null>(null);  // kód pozvánky čekající na přihlášení
@@ -107,7 +102,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
             userTheme: saved.userTheme || s.userTheme,
             contentSize: saved.contentSize || s.contentSize,
             toggles: saved.toggles || s.toggles,
-            bioLock: !!saved.bioLock,
             // lokální data se obnoví jen v lokálním režimu
             groups: CLOUD_MODE ? s.groups : (saved.groups || s.groups),
             expenses: CLOUD_MODE ? s.expenses : (saved.expenses || s.expenses),
@@ -116,15 +110,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }
       } catch (e) {}
       loaded.current = true;
-
-      // Je na zařízení biometrika (a má ji uživatel nastavenou)?
-      (async () => {
-        try {
-          const hw = await LocalAuth.hasHardwareAsync();
-          const enrolled = hw && (await LocalAuth.isEnrolledAsync());
-          if (hw && enrolled) setState((s) => ({ ...s, bioAvailable: true }));
-        } catch (e) {}
-      })();
 
       // Kurzy měn pro orientační přepočet (cache + čerstvé na pozadí)
       loadRates().then((r) => { if (r) setState((s) => ({ ...s, fxRates: r })); }).catch(() => {});
@@ -141,8 +126,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         try {
           const session = await api.authApi.getSession(); // čte se lokálně, rychlé
           if (session) {
-            // Zapnutý biometrický zámek → appka startuje zamčená
-            setState((s) => (s.bioLock ? { ...s, locked: true } : s));
             // Okamžitě ukážeme poslední data z offline cache (než dojede síť)
             const u = session.user;
             const myName0 = u.user_metadata?.full_name || (u.email ? u.email.split('@')[0] : 'Já');
@@ -256,24 +239,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => sub.remove();
   }, []);
 
-  // Biometrický zámek: při odchodu do pozadí se appka zamkne (odemyká se při návratu)
-  useEffect(() => {
-    const sub = RNAppState.addEventListener('change', (st) => {
-      if (st === 'background' && stateRef.current.bioLock && stateRef.current.meUid) {
-        setState((s) => ({ ...s, locked: true }));
-      }
-    });
-    return () => sub.remove();
-  }, []);
-
   // ukládání perzistentní části
   useEffect(() => {
     if (!loaded.current) return;
     const slice = CLOUD_MODE
-      ? { userTheme: state.userTheme, contentSize: state.contentSize, toggles: state.toggles, bioLock: state.bioLock }
-      : { userTheme: state.userTheme, contentSize: state.contentSize, toggles: state.toggles, bioLock: state.bioLock, groups: state.groups, expenses: state.expenses, payments: state.payments };
+      ? { userTheme: state.userTheme, contentSize: state.contentSize, toggles: state.toggles }
+      : { userTheme: state.userTheme, contentSize: state.contentSize, toggles: state.toggles, groups: state.groups, expenses: state.expenses, payments: state.payments };
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(slice)).catch(() => {});
-  }, [state.groups, state.expenses, state.payments, state.userTheme, state.contentSize, state.toggles, state.bioLock]);
+  }, [state.groups, state.expenses, state.payments, state.userTheme, state.contentSize, state.toggles]);
 
   // ---------- pomocné ----------
   function patch(p: Partial<AppState> | ((s: AppState) => Partial<AppState>)) { setState((s) => ({ ...s, ...(typeof p === 'function' ? p(s) : p) })); }
@@ -671,46 +644,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, contentSize: cs, bubbleKey: s.bubbleKey + 1 }));
   }
 
-  // Zapnutí/vypnutí biometrického zámku. Zapnutí si vyžádá ověření (ať se
-  // nikdo nezamkne omylem na zařízení, kde biometrika nefunguje).
-  async function setBioLock(v: boolean) {
-    if (v) {
-      try {
-        const hw = await LocalAuth.hasHardwareAsync();
-        const enrolled = hw && (await LocalAuth.isEnrolledAsync());
-        if (!hw || !enrolled) { showToast('Biometrika není na zařízení nastavená'); return; }
-        const res = await LocalAuth.authenticateAsync({ promptMessage: 'Potvrď zapnutí zámku', cancelLabel: 'Zrušit' });
-        if (!res.success) return;
-      } catch (e) { return; }
-    }
-    patch({ bioLock: v });
-    showToast(v ? 'Zámek zapnut' : 'Zámek vypnut');
-  }
-
-  // Odemknutí zamčené appky biometrikou (s fallbackem na PIN zařízení)
-  async function unlockApp() {
-    if (unlocking.current) return; // zabraň souběhu auto-pokusu a klepnutí na tlačítko
-    unlocking.current = true;
-    try {
-      const hw = await LocalAuth.hasHardwareAsync();
-      const enrolled = hw && (await LocalAuth.isEnrolledAsync());
-      // Nemá čím ověřit (biometrika zrušená) → nenech uživatele zamčeného
-      if (!hw || !enrolled) { setState((s) => ({ ...s, locked: false })); return; }
-      const res = await LocalAuth.authenticateAsync({
-        promptMessage: 'Odemkni Dotačníček',
-        cancelLabel: 'Zrušit',
-        disableDeviceFallback: false, // povol i PIN/gesto zařízení
-        requireConfirmation: false,
-      });
-      if (res.success) setState((s) => ({ ...s, locked: false }));
-    } catch (e) {
-      // Technická chyba ověření (např. aktivita ještě nepřipojená) → radši odemkni,
-      // ať uživatel neuvízne v zamčené appce.
-      setState((s) => ({ ...s, locked: false }));
-    } finally {
-      unlocking.current = false;
-    }
-  }
   function toggleSet(k: keyof AppState['toggles']) { setState((s) => ({ ...s, toggles: { ...s.toggles, [k]: !s.toggles[k] } })); }
   function setPayer(n: string) { patch({ addPayer: n }); }
   function togglePart(n: string) {
@@ -822,8 +755,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (CLOUD_MODE) { try { await api.authApi.signOut(); } catch (e) {} }
     if (uid) AsyncStorage.removeItem(cacheKey(uid)).catch(() => {});
     meRef.current = null;
-    // bioLock se po odhlášení vypíná (chránil data přihlášeného uživatele)
-    setState((s) => ({ ...makeInitialState(), userTheme: s.userTheme, contentSize: s.contentSize, toggles: s.toggles, googleEnabled: s.googleEnabled, bioAvailable: s.bioAvailable }));
+    setState((s) => ({ ...makeInitialState(), userTheme: s.userTheme, contentSize: s.contentSize, toggles: s.toggles, googleEnabled: s.googleEnabled }));
   }
 
   async function deleteAccount() {
@@ -834,7 +766,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
     if (uid) AsyncStorage.removeItem(cacheKey(uid)).catch(() => {});
     meRef.current = null;
-    setState((s) => ({ ...makeInitialState(), userTheme: s.userTheme, contentSize: s.contentSize, toggles: s.toggles, googleEnabled: s.googleEnabled, bioAvailable: s.bioAvailable }));
+    setState((s) => ({ ...makeInitialState(), userTheme: s.userTheme, contentSize: s.contentSize, toggles: s.toggles, googleEnabled: s.googleEnabled }));
     showToast('Účet smazán');
   }
 
@@ -944,7 +876,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const actions: Actions = {
     patch, showToast, navigate, goBack, openGroup, startAdd, startEdit, submitExpense, payDebt,
-    openContract, pokeMascot, setTheme, setContentSize, setBioLock, unlockApp, toggleSet, setPayer, togglePart, setCurrency, setSplitType, setCategory, setShare, doRegister, doLogin, sendPasswordReset, submitNewPassword, enterGoogle, logout,
+    openContract, pokeMascot, setTheme, setContentSize, toggleSet, setPayer, togglePart, setCurrency, setSplitType, setCategory, setShare, doRegister, doLogin, sendPasswordReset, submitNewPassword, enterGoogle, logout,
     startCreateGroup, addMember, removeMember, createGroup, openExpense, deleteExpense, deleteGroup,
     deleteAccount, startJoin, submitJoin, joinByCode, finishJoin, setMyName,
     refreshAll, refreshGroup,
