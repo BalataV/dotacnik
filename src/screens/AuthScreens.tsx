@@ -121,7 +121,10 @@ export function Login() {
       <Label>E-mail</Label>
       <Field value={state.loginEmail} onChangeText={(t) => actions.patch({ loginEmail: t })} placeholder="vas@email.cz" keyboardType="email-address" autoCapitalize="none" autoComplete="email" textContentType="emailAddress" maxLength={254} style={{ marginBottom: 14 }} />
       <Label>Heslo</Label>
-      <Field value={state.loginPassword} onChangeText={(t) => actions.patch({ loginPassword: t })} placeholder="••••••••" secureTextEntry autoComplete="current-password" textContentType="password" maxLength={72} style={{ marginBottom: 26 }} />
+      <Field value={state.loginPassword} onChangeText={(t) => actions.patch({ loginPassword: t })} placeholder="••••••••" secureTextEntry autoComplete="current-password" textContentType="password" maxLength={72} style={{ marginBottom: 10 }} />
+      <Text onPress={actions.sendPasswordReset} accessibilityRole="button" suppressHighlighting style={{ textAlign: 'right', fontFamily: FONTS.body700, fontSize: 13, color: c.onbg, opacity: 0.65, marginBottom: 24 }}>
+        Zapomenuté heslo? Pošleme ti odkaz
+      </Text>
       <Pushable onPress={actions.doLogin} radius={14}>
         <View style={{ backgroundColor: c.accent, borderWidth: 3, borderColor: c.ink, borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
           <Text style={{ fontFamily: FONTS.display600, fontSize: 18, color: '#fff' }}>Vstoupit</Text>
@@ -129,6 +132,32 @@ export function Login() {
       </Pushable>
       <Text onPress={() => actions.navigate('register_email')} accessibilityRole="button" suppressHighlighting style={{ textAlign: 'center', fontFamily: FONTS.body700, fontSize: 14, color: c.accent, marginTop: 20 }}>
         Nemám účet → Zaregistrovat se
+      </Text>
+    </ScrollView>
+    </KeyboardAvoidingView>
+  );
+}
+
+// Nastavení nového hesla – sem uživatel přijde z e-mailového odkazu na obnovu
+// (web /app/?reset=1; session z odkazu už zpracoval supabase klient).
+export function ResetPassword() {
+  const c = useColors();
+  const { state, actions } = useApp();
+  const valid = state.resetPass.length >= 6;
+  return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled">
+      <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Nové heslo</Text>
+      <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Zadej nové heslo ke svému účtu. To staré klidně zapomeň.</Text>
+      <Label>Nové heslo</Label>
+      <Field value={state.resetPass} onChangeText={(t) => actions.patch({ resetPass: t })} placeholder="min. 6 znaků" secureTextEntry autoComplete="new-password" textContentType="newPassword" maxLength={72} style={{ marginBottom: 26 }} />
+      <Pushable onPress={actions.submitNewPassword} disabled={!valid} radius={14}>
+        <View style={{ backgroundColor: c.good, borderWidth: 3, borderColor: c.ink, borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
+          <Text style={{ fontFamily: FONTS.display600, fontSize: 18, color: '#fff' }}>Uložit nové heslo</Text>
+        </View>
+      </Pushable>
+      <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ textAlign: 'center', fontFamily: FONTS.body700, fontSize: 14, color: c.accent, marginTop: 20 }}>
+        Teď ne → Přejít do appky
       </Text>
     </ScrollView>
     </KeyboardAvoidingView>

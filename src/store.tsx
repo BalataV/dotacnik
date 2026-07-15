@@ -2,7 +2,7 @@
 //  - CLOUD_MODE: data čte/zapisuje do Supabase (sdílené mezi zařízeními i členy)
 //  - lokální: data jen v telefonu (AsyncStorage), když nejsou klíče
 import React, { createContext, useContext, useEffect, useRef, useState, ReactNode } from 'react';
-import { BackHandler, AppState as RNAppState } from 'react-native';
+import { BackHandler, AppState as RNAppState, Platform } from 'react-native';
 import * as LocalAuth from 'expo-local-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Linking from 'expo-linking';
@@ -54,6 +54,7 @@ function makeInitialState(): AppState {
     locked: false,
     regEmail: '', regPassword: '',
     loginEmail: '', loginPassword: '',
+    resetPass: '',
     addDesc: '', addAmount: '', addPayer: 'Já', addParts: [], addPhoto: null,
     addCurrency: 'CZK',          // měna výdaje (CZK/EUR/USD)
     addSplitType: 'equal',       // equal | ratio | exact
@@ -154,6 +155,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
               }
             } catch (e) {}
             await finishLogin(); // čerstvá data ze sítě (přepíšou cache)
+            // Příchod z odkazu „obnova hesla" → rovnou nabídnout nastavení nového
+            if (wantsPasswordReset()) {
+              clearResetParam();
+              setState((s) => ({ ...s, screen: 'reset_password' }));
+            }
+          } else if (wantsPasswordReset()) {
+            // odkaz vypršel / už byl použitý – session z něj nevznikla
+            clearResetParam();
+            showToast('Odkaz na obnovu hesla vypršel – požádej o nový');
           }
         } catch (e) {}
       }
@@ -195,6 +205,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return m ? m[1].toUpperCase() : null;
   }
 
+  // Přišli jsme z e-mailového odkazu na obnovu hesla? (jen web – odkaz vede
+  // na /app/?reset=1; session z odkazu zpracuje supabase klient sám)
+  function wantsPasswordReset(): boolean {
+    if (Platform.OS !== 'web' || typeof window === 'undefined') return false;
+    try { return new URLSearchParams(window.location.search).get('reset') === '1'; } catch (e) { return false; }
+  }
+  function clearResetParam() {
+    if (Platform.OS !== 'web' || typeof window === 'undefined') return;
+    try {
+      const u = new URL(window.location.href);
+      u.searchParams.delete('reset');
+      u.searchParams.delete('code');
+      window.history.replaceState({}, '', u.toString());
+    } catch (e) {}
+  }
+
   // Systémové "zpět" (hardwarové tlačítko i gesto přejetím prstu na Androidu).
   // Vrátíme true = obsloužili jsme to sami (appka se nevypne); false = nech systém
   // udělat výchozí akci (na úvodní obrazovce = zavřít appku, což je správně).
@@ -216,6 +242,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       join: 'overview',
       register_email: 'onboarding',
       login: 'onboarding',
+      reset_password: 'overview',
     };
     const target = targets[sc];
     if (!target) return false; // overview / onboarding → necháme appku zavřít
@@ -731,14 +758,52 @@ export function AppProvider({ children }: { children: ReactNode }) {
         await api.authApi.signInWithEmail(s.loginEmail, s.loginPassword);
         setState((x) => ({ ...x, busy: false }));
         await finishLogin();
-      } catch (e) {
+      } catch (e: any) {
         setState((x) => ({ ...x, busy: false }));
-        showToast('Špatný e-mail nebo heslo');
+        // Nepotvrzený e-mail hlásí Supabase jako "Email not confirmed"
+        showToast(String(e?.message || '').toLowerCase().includes('confirm')
+          ? 'Nejdřív potvrď e-mail – mrkni do schránky 📨'
+          : 'Špatný e-mail nebo heslo');
       }
       return;
     }
     setState((x) => ({ ...x, screen: 'overview', bubble: bubbleFor(x, 'overview'), bubbleKey: x.bubbleKey + 1 }));
     showToast('Přihlášení úspěšné');
+  }
+
+  // Zapomenuté heslo: pošle e-mail s odkazem (použije e-mail z přihlašovacího pole)
+  async function sendPasswordReset() {
+    const email = stateRef.current.loginEmail.trim();
+    if (!email.includes('@')) { showToast('Nejdřív nahoře vyplň svůj e-mail'); return; }
+    if (!CLOUD_MODE) { showToast('V lokálním režimu se heslo nepoužívá'); return; }
+    setState((x) => ({ ...x, busy: true }));
+    try {
+      await api.authApi.resetPassword(email);
+      setState((x) => ({ ...x, busy: false }));
+      showToast('Odkaz na obnovu hesla je na cestě 📨');
+    } catch (e) {
+      setState((x) => ({ ...x, busy: false }));
+      showToast('E-mail se nepodařilo odeslat, zkus to za chvíli');
+    }
+  }
+
+  // Nastavení nového hesla (obrazovka reset_password po příchodu z odkazu)
+  async function submitNewPassword() {
+    const pw = stateRef.current.resetPass;
+    if (pw.length < 6) { showToast('Heslo musí mít aspoň 6 znaků'); return; }
+    setState((x) => ({ ...x, busy: true }));
+    try {
+      await api.authApi.updatePassword(pw);
+      setState((x) => ({ ...x, busy: false, resetPass: '' }));
+      showToast('Nové heslo nastaveno ✅');
+      navigate('overview');
+    } catch (e: any) {
+      setState((x) => ({ ...x, busy: false }));
+      // "New password should be different from the old password"
+      showToast(String(e?.message || '').toLowerCase().includes('different')
+        ? 'Nové heslo musí být jiné než to staré'
+        : 'Nastavení hesla selhalo, zkus to znovu');
+    }
   }
 
   async function enterGoogle() {
@@ -879,7 +944,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const actions: Actions = {
     patch, showToast, navigate, goBack, openGroup, startAdd, startEdit, submitExpense, payDebt,
-    openContract, pokeMascot, setTheme, setContentSize, setBioLock, unlockApp, toggleSet, setPayer, togglePart, setCurrency, setSplitType, setCategory, setShare, doRegister, doLogin, enterGoogle, logout,
+    openContract, pokeMascot, setTheme, setContentSize, setBioLock, unlockApp, toggleSet, setPayer, togglePart, setCurrency, setSplitType, setCategory, setShare, doRegister, doLogin, sendPasswordReset, submitNewPassword, enterGoogle, logout,
     startCreateGroup, addMember, removeMember, createGroup, openExpense, deleteExpense, deleteGroup,
     deleteAccount, startJoin, submitJoin, joinByCode, finishJoin, setMyName,
     refreshAll, refreshGroup,

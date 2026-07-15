@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Linking from 'expo-linking';
 import { supabase, SUPABASE_URL, SUPABASE_ANON_KEY } from '../supabase';
+import { LANDING_BASE } from '../config';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -71,6 +72,21 @@ export async function signInWithEmail(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw error;
   return data;
+}
+
+// Pošle e-mail s odkazem na obnovu hesla. Odkaz vede do webové appky s ?reset=1 –
+// ta po zpracování přihlášení z odkazu ukáže obrazovku „nastav si nové heslo".
+export async function resetPassword(email: string) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: LANDING_BASE + '/app/?reset=1',
+  });
+  if (error) throw error;
+}
+
+// Nastaví nové heslo přihlášeného uživatele (po příchodu z odkazu na obnovu)
+export async function updatePassword(password: string) {
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) throw error;
 }
 
 export async function signOut() {

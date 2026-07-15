@@ -9,7 +9,7 @@ import Mascot from './components/Mascot';
 import { Coins, Toast } from './components/Overlays';
 import { isAltQuip } from './quips';
 
-import { Onboarding, RegisterEmail, Login } from './screens/AuthScreens';
+import { Onboarding, RegisterEmail, Login, ResetPassword } from './screens/AuthScreens';
 import Overview from './screens/Overview';
 import CreateGroup from './screens/CreateGroup';
 import ShareGroup from './screens/ShareGroup';
@@ -135,6 +135,7 @@ export default function Root() {
   if (sc === 'onboarding') Screen = <Onboarding />;
   else if (sc === 'register_email') Screen = <RegisterEmail />;
   else if (sc === 'login') Screen = <Login />;
+  else if (sc === 'reset_password') Screen = <ResetPassword />;
   else if (sc === 'overview') Screen = <Overview />;
   else if (sc === 'create_group') Screen = <CreateGroup />;
   else if (sc === 'share_group') Screen = <ShareGroup />;

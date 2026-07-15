@@ -7,7 +7,7 @@ export type ContentSize = 'small' | 'medium' | 'large';
 export type MascotMood = 'neutral' | 'happy' | 'sad';
 
 export type ScreenName =
-  | 'onboarding' | 'register_email' | 'login' | 'overview' | 'create_group'
+  | 'onboarding' | 'register_email' | 'login' | 'reset_password' | 'overview' | 'create_group'
   | 'share_group' | 'join' | 'choose_identity' | 'group' | 'add' | 'expense'
   | 'settle' | 'profile' | 'privacy' | 'audit' | 'smlouva' | 'activity';
 
@@ -94,6 +94,7 @@ export interface AppState {
   regPassword: string;
   loginEmail: string;
   loginPassword: string;
+  resetPass: string;     // nové heslo na obrazovce reset_password
   addDesc: string;
   addAmount: string;
   addPayer: string;
@@ -143,6 +144,8 @@ export interface Actions {
   setShare: (name: string, value: string) => void;
   doRegister: () => void;
   doLogin: () => void;
+  sendPasswordReset: () => void;
+  submitNewPassword: () => void;
   enterGoogle: () => void;
   logout: () => void;
   startCreateGroup: () => void;
