@@ -1,173 +1,234 @@
-# 🍎 Návod: vydání Dotačníčku na Apple App Store (krok za krokem)
+# 🍎 Vydání Dotačníčku na App Store — KOMPLETNÍ checklist
 
-Pro úplného začátečníka, z Windows (build běží v cloudu EAS, Mac nepotřebuješ).
-Postupuj odshora dolů.
+Krok za krokem, každé pole a každý checkbox. Z Windows (build běží v cloudu EAS,
+Mac nepotřebuješ). Odškrtávej si `[ ]` → `[x]` jak postupuješ.
 
-> **Srovnání s Googlem:** Google Play = 25 USD jednorázově. Apple = **99 USD ročně**
-> (Apple Developer Program). Bez toho na App Store nelze publikovat — žádná výjimka.
-> Zdarma alternativa pro iPhone uživatele zůstává webová verze:
-> https://dotacnicek.cz/app/
+**Co budeš potřebovat:**
+- [ ] Apple ID se zapnutým dvoufaktorovým ověřením (2FA)
+- [ ] Platební kartu (99 USD/rok, ~2 300 Kč)
+- [ ] Občanku po ruce (Apple občas chce ověřit totožnost)
+- [ ] Ideálně iPhone na otestování (jde to i bez — viz Fáze 4)
+- [ ] Testovací účet appky (e-mail + heslo, POTVRZENÝ) — stejný jako pro Google
 
----
-
-## ⚠️ Než začneš: právní riziko je u Applu VYŠŠÍ
-Apple recenzuje přísněji než Google (App Review Guideline 1.1 — hanlivý/zesměšňující
-obsah cílený na reálnou osobu). Parodický maskot může projít (satira je obhajitelná),
-ale zamítnutí je reálně možné. Disclaimer už máme v popisu appky — pomáhá.
-Před vydáním zvaž konzultaci s advokátem (stejné doporučení jako u Googlu).
+> ⚠️ **Právní připomínka:** Apple recenzuje satiru přísněji než Google
+> (guideline 1.1). Disclaimer v popisu + vysvětlení v Review Notes riziko
+> snižují, ale zamítnutí je možné. Není to konec — řeší se odpovědí/úpravou.
 
 ---
 
-## FÁZE 0 – Apple Developer účet (musíš udělat osobně)
-1. Potřebuješ **Apple ID se zapnutým dvoufaktorovým ověřením**.
-2. Jdi na https://developer.apple.com/programs/enroll/ a zaregistruj se jako
-   **Individual** (fyzická osoba).
-3. Zaplať **99 USD/rok**. Schválení trvá obvykle **24–48 hodin** (přijde e-mail).
-4. Po schválení se přihlas na https://appstoreconnect.apple.com — uvidíš prázdný přehled.
+## FÁZE 0 — Apple Developer účet (blokuje všechno ostatní, začni tady)
+
+1. [ ] **Zapni 2FA na Apple ID** (pokud nemáš): appleid.apple.com → přihlas se
+   → **Sign-In and Security** → **Two-Factor Authentication** → Turn On.
+   Bez 2FA tě Apple do programu nepustí.
+2. [ ] Jdi na **https://developer.apple.com/programs/enroll/** → **Start Your
+   Enrollment** → přihlas se svým Apple ID.
+3. [ ] Odsouhlas **Apple Developer Agreement** (checkbox + Submit).
+4. [ ] **Entity Type:** vyber **Individual / Sole Proprietor** (fyzická osoba).
+5. [ ] **Osobní údaje:** jméno a příjmení **přesně podle dokladu, latinkou**
+   (Vojtěch → klidně s diakritikou, Apple ji bere), adresa, telefon.
+   Tohle jméno se pak zobrazuje v App Store jako „vývojář" — u Individual
+   účtu **nejde skrýt** (firma by chtěla IČO/DUNS, pro začátek netřeba).
+6. [ ] **Purchase** — zaplať **99 USD** kartou (proběhne 3D Secure ověření).
+7. [ ] **Co bude následovat po zaplacení:**
+   - Hned: e-mail s potvrzením objednávky (Order Confirmation).
+   - Do **24–48 h**: e-mail **„Welcome to the Apple Developer Program"** —
+     tím je účet aktivní.
+   - **Občas navíc:** Apple si vyžádá ověření totožnosti — e-mailem tě požádá
+     o fotku dokladu (nahrává se přes web nebo přes appku Apple Developer),
+     výjimečně zavolají. Normální proces, nelekni se.
+8. [ ] **Kontrola:** developer.apple.com/account ukazuje „Membership: Apple
+   Developer Program" a přihlášení na **appstoreconnect.apple.com** funguje
+   (uvidíš prázdné My Apps).
 
 ---
 
-## FÁZE 1 – Build pro iOS přes EAS (z Windows, cloud)
-Z adresáře `BabisovnikApp`:
+## FÁZE 1 — iOS build přes EAS (z terminálu ve Windows)
+
+Z adresáře `BabisovnikApp` spusť:
 
 ```bash
 eas build --platform ios --profile production
 ```
 
-- EAS se zeptá na **přihlášení k Apple účtu** → přihlas se svým Apple ID.
-- Na otázky ohledně **certifikátů, provisioning profilu a push klíče (APNs)**
-  odpovídej **Yes / Generate** — EAS vše vytvoří a spravuje za tebe.
-  (Push klíč je nutný, aby fungovaly notifikace.)
-- Bundle ID `com.balata.dotacnicek` EAS zaregistruje automaticky.
-- Build trvá ~15–30 min. Výsledek je `.ipa` (nemusíš stahovat — nahraje se přímo, viz Fáze 2).
+Co přesně uvidíš a co odpovědět:
 
-**Poznámky ke kódu (už hotové, jen pro info):**
-- `supportsTablet: false` — appka je iPhone-only (na iPadu poběží v kompatibilním
-  režimu). Ušetří to iPad screenshoty a iPad review. Jde později zapnout.
-- `usesNonExemptEncryption: false` — appka používá jen HTTPS, přeskočí se
-  otázka na export šifrování při každém nahrání.
-- **Google login je na iOS skrytý** — Apple by jinak vyžadoval i „Sign in with Apple"
-  (guideline 4.8). E-mail přihlášení funguje normálně. Kdybys chtěl Google na iOS
-  později, musí se přidat balíček `expo-apple-authentication` + zapnout Apple
-  provider v Supabase → řekni si, doplníme.
+- [ ] `Do you want to log in to your Apple account?` → **Y**
+- [ ] `Apple ID:` → tvůj Apple ID e-mail → heslo (jde přímo Applu, ne Expu)
+- [ ] **2FA kód** — přijde na tvůj iPhone/Mac nebo SMS → opiš 6 číslic do terminálu
+- [ ] Výběr **Team** — máš jen jeden (tvoje jméno, Individual) → Enter
+- [ ] `Generate a new Apple Distribution Certificate?` → **Y**
+- [ ] `Generate a new Apple Provisioning Profile?` → **Y**
+- [ ] Otázka na **Push Notifications key (APNs)** → **Y / Generate**
+      (nutné, aby chodily notifikace!)
+- [ ] Bundle ID **com.balata.dotacnicek** se zaregistruje automaticky.
+- [ ] Build běží v cloudu **15–30 min** — sleduj odkaz, který ti vypíše
+      (expo.dev/accounts/balatav/projects/BabisovnikApp/builds/…).
+- [ ] **Kontrola:** build má zelený stav **Finished**.
 
 ---
 
-## FÁZE 2 – Založení appky v App Store Connect
-1. https://appstoreconnect.apple.com → **My Apps** → **+** → **New App**.
-2. Vyplň:
-   | Pole | Hodnota |
-   |---|---|
-   | Platforms | **iOS** |
-   | Name | **Dotačníček** |
-   | Primary Language | **Czech** |
-   | Bundle ID | **com.balata.dotacnicek** (vyber ze seznamu — vytvořil ho EAS build) |
-   | SKU | `dotacnicek` |
-   | User Access | Full Access |
+## FÁZE 2 — Založení appky v App Store Connect
 
-3. Nahraj build do App Store Connect:
+1. [ ] **appstoreconnect.apple.com** → **My Apps** → modré **⊕** → **New App**.
+2. [ ] Vyplň přesně:
+
+| Pole | Hodnota |
+|---|---|
+| Platforms | ☑ **iOS** (ostatní nech prázdné) |
+| Name | `Dotačníček` |
+| Primary Language | **Czech** |
+| Bundle ID | **com.balata.dotacnicek** (vyber z rozbalovacího seznamu — vytvořil ho build ve Fázi 1; když tam není, obnov stránku) |
+| SKU | `dotacnicek` |
+| User Access | **Full Access** |
+
+3. [ ] **Create** → otevře se stránka appky s verzí „1.0 Prepare for Submission".
+
+---
+
+## FÁZE 3 — Nahrání buildu do App Store Connect
+
 ```bash
 eas submit --platform ios --latest
 ```
-   (vezme poslední hotový build z Fáze 1 a nahraje ho; opět se přihlásíš k Apple)
+
+- [ ] Znovu přihlášení k Apple (stejně jako ve Fázi 1).
+- [ ] EAS najde appku podle Bundle ID a nahraje poslední build.
+- [ ] V ASC → tvá appka → záložka **TestFlight**: build se objeví jako
+      **Processing** → po **10–60 min** bude „Ready to Submit".
+- [ ] Otázka na šifrování (export compliance) **nepřijde** — je zodpovězená
+      v kódu (`usesNonExemptEncryption: false`). ✓
 
 ---
 
-## FÁZE 3 – TestFlight (otestuj na svém iPhonu)
-1. V App Store Connect → **TestFlight** → build se objeví po ~10–30 min zpracování.
-2. Do **Internal Testing** přidej sám sebe (svůj Apple ID e-mail).
-3. Na iPhone si nainstaluj appku **TestFlight** z App Store → přijde ti pozvánka
-   → nainstaluj Dotačníček a projdi: registrace, skupina, výdaj, notifikace,
-   tmavý režim.
+## FÁZE 4 — TestFlight (otestování na iPhonu)
+
+1. [ ] ASC → **TestFlight** → vlevo **Internal Testing** → **⊕** → název
+   skupiny např. `Interni` → Create.
+2. [ ] **Testers ⊕** → přidej **svůj Apple ID e-mail** (jako Account Holder
+   už v seznamu jsi).
+3. [ ] Na **iPhonu**: App Store → nainstaluj **TestFlight** → přihlas se
+   stejným Apple ID → uvidíš Dotačníček → **Install**.
+4. [ ] **Otestuj (checklist):**
+   - [ ] registrace e-mailem → přijde potvrzovací e-mail → potvrzení funguje
+   - [ ] přihlášení + odhlášení
+   - [ ] „Zapomenuté heslo" → přijde e-mail → nastavení nového hesla
+   - [ ] založení skupiny, pozvánka (sdílení odkazu)
+   - [ ] výdaj s fotkou účtenky (povolení fotoaparátu/fotek — česká hláška)
+   - [ ] vyrovnání dluhu, notifikace (povolit při prvním dotazu)
+   - [ ] tmavý režim, velikost písma
+   - [ ] smazání účtu (Profil)
+5. **Nemáš iPhone?** Půjč si na půl hodiny od kohokoli — do TestFlightu se na
+   něm přihlásíš svým Apple ID a otestuješ. Kdyby to fakt nešlo: můžeš odeslat
+   i bez testu (kód je stejný jako ověřená Android verze), ale riskuješ, že
+   drobnost objeví až recenzent → zamítnutí a kolo navíc.
 
 ---
 
-## FÁZE 4 – Vyplnění záznamu (App Store listing)
-V App Store Connect → tvá appka → **App Store** (levé menu) → verze 1.0:
+## FÁZE 5 — Vyplnění záznamu (všechna pole)
 
-### Texty
-| Pole | Co vložit |
+### 5a) App Information (levé menu → General → App Information)
+- [ ] Name: `Dotačníček` (předvyplněné)
+- [ ] Subtitle: `Dělení útrat s partou`
+- [ ] Category → Primary: **Finance** · Secondary (volitelné): **Lifestyle**
+- [ ] Content Rights: **„…does not contain, show, or access third-party
+  content"** (appka neobsahuje cizí obsah)
+- [ ] **Age Rating** → Edit → dotazník, odpověz:
+
+| Otázka | Odpověď |
 |---|---|
-| Promotional Text (volitelné) | `Kdo komu dluží? Spočítám to za vás. Sorry jako.` |
-| Description | zkopíruj **úplný popis** ze `store/listing-cs.md` (stejný jako pro Google) |
-| Keywords | `dluhy,útraty,skupina,splitwise,výdaje,parta,vyrovnání,účty,dovolená,spolubydlící` |
-| Support URL | `https://dotacnicek.cz/` |
-| Marketing URL (volitelné) | `https://dotacnicek.cz/` |
+| Cartoon or Fantasy Violence / Realistic Violence | None |
+| Sexual Content, Nudity | None |
+| Profanity or **Crude Humor** | **Infrequent/Mild** (satirické hlášky) |
+| Alcohol, Tobacco, Drug Use | None |
+| Mature/Suggestive Themes | None |
+| Horror/Fear Themes | None |
+| Simulated Gambling | None |
+| Medical/Treatment Information | None |
+| Contests | None |
+| Unrestricted Web Access | No |
+| Gambling and Contests | No |
 
-### Screenshoty
-- **iPhone 6,9"**: nahraj 5 souborů ze `store/screenshots-ios/` (1290×2796) —
-  Apple je použije i pro menší displeje.
-- iPad sekce se nezobrazí (máme `supportsTablet: false`). ✓
+  → výsledek **12+** → Done. ✓
 
-### App Privacy (obdoba Data safety u Googlu)
-**Privacy Policy URL:** `https://dotacnicek.cz/privacy.html`
+### 5b) Pricing and Availability (levé menu)
+- [ ] Price Schedule → **Add Pricing** → vyber **CZK 0 (Free)** → potvrď
+- [ ] Availability: **All Countries and Regions** (nebo si vyber jen
+  Česko + Slovensko — jde kdykoli změnit)
 
-Klikni **Get Started** u App Privacy a deklaruj (mapování z `store/data-safety.md`):
+### 5c) App Privacy (levé menu)
+- [ ] Privacy Policy URL: `https://dotacnicek.cz/privacy.html`
+- [ ] **Get Started** → „Do you collect data from this app?" → **Yes, we
+  collect data** → zaškrtej PŘESNĚ tyhle typy (nic víc):
 
-| Apple kategorie | Co | Účel | Linked to user? | Tracking? |
-|---|---|---|---|---|
-| Contact Info → Email Address | e-mail účtu | App Functionality | **Ano** | Ne |
-| Contact Info → Name | jméno ve skupině | App Functionality | **Ano** | Ne |
-| Financial Info → Other Financial Info | částky útrat | App Functionality | **Ano** | Ne |
-| User Content → Photos or Videos | fotky účtenek | App Functionality | **Ano** | Ne |
-| User Content → Other User Content | názvy skupin, popisy výdajů | App Functionality | **Ano** | Ne |
-| Identifiers → Device ID | push token | App Functionality | **Ano** | Ne |
-| Diagnostics → Crash Data | pády aplikace | App Functionality | Ne | Ne |
+| Kategorie → typ | Purpose | Linked to user? | Tracking? |
+|---|---|---|---|
+| Contact Info → **Email Address** | App Functionality | **Yes** | No |
+| Contact Info → **Name** | App Functionality | **Yes** | No |
+| Financial Info → **Other Financial Info** | App Functionality | **Yes** | No |
+| User Content → **Photos or Videos** | App Functionality | **Yes** | No |
+| User Content → **Other User Content** | App Functionality | **Yes** | No |
+| Identifiers → **Device ID** *(push token)* | App Functionality | **Yes** | No |
+| Diagnostics → **Crash Data** | App Functionality | **No** | No |
 
-- „Do you or your third-party partners use data for tracking?" → **No** (žádné reklamy/tracking).
+- [ ] „Do you or your third-party partners use data for **tracking**?" → **No**
+- [ ] **Publish** (pravý horní roh sekce App Privacy).
 
-### Age Rating (dotazník)
-- Násilí, sex, drogy, hazard, léky, hrůza → **None** všude
-- **Mature/Suggestive Themes** → None
-- **Profanity or Crude Humor** → **Infrequent/Mild** (satirické hlášky)
-- Neomezený web přístup → No, Hazard/soutěže → No
-- Výsledek bude **12+** — to je v pořádku.
-
-### App Review Information (KLÍČOVÉ — jinak zamítnou)
-- **Sign-in required** → zaškrtni a vyplň **testovací účet**:
-  e-mail + heslo účtu, který sis založil pro Google Play recenzenty (stejný funguje).
-- **Notes** — vlož (anglicky, ať tomu recenzent rozumí):
-  ```
-  Dotacnicek is a Czech expense-splitting app for groups (like Splitwise).
-  The mascot is a fictional satirical caricature; the app contains mild
-  political satire/parody clearly presented as humor. It does not reference
-  any real person by name, does not make factual claims, and includes a
-  disclaimer in the app description. All content is user-generated expense
-  tracking within private groups.
-  Test account: [e-mail] / [heslo]
-  Sign in via "Přihlásit se" (Log in) → enter email and password → "Vstoupit".
-  ```
-- Contact: tvoje jméno, telefon, e-mail.
-
-### Ostatní
-- **Pricing** → Free, všechny země (nebo jen Česko/Slovensko, jak chceš).
-- **App Store Version Release** → doporučuji **Manually release this version**
-  (po schválení vydáš sám tlačítkem).
-
----
-
-## FÁZE 5 – Odeslání na review
-1. Nahoře **Add for Review** → **Submit to App Review**.
-2. Review trvá obvykle **1–3 dny**. Výsledek přijde e-mailem.
-3. Když schválí → klikni **Release** (při manuálním vydání). 🎉
-4. Když zamítnou → přečti důvod (přijde v Resolution Center), oprav, nahraj
-   nový build (`eas build` + `eas submit`) nebo jen uprav metadata a pošli znovu.
-   Zamítnutí je normální součást procesu, ne konec světa.
-
----
-
-## Aktualizace appky v budoucnu
-1. Změny v kódu → `eas build --platform ios --profile production` → `eas submit --platform ios --latest`.
-2. V App Store Connect vytvoř novou verzi (např. 1.0.1), přiřaď build, Submit.
-3. Drobné JS změny jdou i přes **OTA**: `eas update --branch production` —
-   funguje pro iOS i Android současně, bez review. (Nové nativní balíčky vždy = nový build.)
+### 5d) Verze 1.0 (App Store tab → iOS App 1.0 Prepare for Submission)
+- [ ] **App Previews and Screenshots** → záložka **iPhone 6.9″ Display** →
+  přetáhni 5 souborů ze `store/screenshots-ios/` v pořadí 01→05 (1290×2796).
+  Ostatní velikosti se doplní samy; iPad sekce není (supportsTablet: false). ✓
+- [ ] Promotional Text: `Kdo komu dluží? Spočítám to za vás. Sorry jako.`
+- [ ] Description: **celý popis** ze `store/listing-cs.md` (sekce „Úplný popis")
+- [ ] Keywords: `dluhy,útraty,skupina,splitwise,výdaje,parta,vyrovnání,účty,dovolená,spolubydlící`
+- [ ] Support URL: `https://dotacnicek.cz/`
+- [ ] Marketing URL (volitelné): `https://dotacnicek.cz/`
+- [ ] Version: `1.0.0` · Copyright: `2026 Vojtěch Balata`
+- [ ] **Build** → **⊕ Add Build** → vyber build nahraný ve Fázi 3
+- [ ] **App Review Information:**
+  - [ ] ☑ **Sign-in required** → Username: *e-mail testovacího účtu* ·
+    Password: *heslo* (účet MUSÍ být e-mailem potvrzený — přihlas se s ním
+    jednou předem!)
+  - [ ] Contact Information: tvoje jméno, telefon `+420…`,
+    e-mail `podpora@dotacnicek.cz`
+  - [ ] **Notes** — vlož beze změny:
+    ```
+    Dotacnicek is a Czech expense-splitting app for groups (like Splitwise).
+    The mascot is a fictional satirical caricature; the app contains mild
+    political satire/parody clearly presented as humor. It does not reference
+    any real person by name, does not make factual claims, and includes a
+    disclaimer in the app description. All content is user-generated expense
+    tracking within private groups.
+    Sign in via "Přihlásit se" (Log in) → enter the test account email and
+    password above → tap "Vstoupit".
+    ```
+- [ ] **App Store Version Release** → ☑ **Manually release this version**
+  (po schválení vydáš sám tlačítkem — máš kontrolu nad momentem vydání)
+- [ ] **Save** (pravý horní roh). Žádné pole nesmí svítit červeně.
 
 ---
 
-## Souhrn: co musíš udělat TY (nejde automatizovat)
-1. ⏳ Zaplatit a založit Apple Developer účet (99 USD/rok, ~1–2 dny schvalování)
-2. ▶️ Spustit `eas build --platform ios --profile production` (+ přihlášení k Apple)
-3. ▶️ Spustit `eas submit --platform ios --latest`
-4. 🖱️ Založit appku v App Store Connect + vyplnit listing (texty/screenshoty máš hotové)
-5. 📱 Otestovat přes TestFlight
-6. 🚀 Submit to App Review → po schválení Release
+## FÁZE 6 — Odeslání na review a vydání
+
+1. [ ] Nahoře **Add for Review** → zkontroluj souhrn → **Submit to App Review**.
+2. [ ] Stav se změní: **Waiting for Review** (hodiny až ~1 den) →
+   **In Review** (hodiny) → e-mail s výsledkem. Celkem obvykle **1–3 dny**.
+3. [ ] **Approved** → stav „Pending Developer Release" → klikni
+   **Release This Version** → do ~24 h je appka živá na App Store. 🎉
+4. [ ] **Rejected?** → **Resolution Center** (v ASC) → přečti přesný důvod:
+   - jen metadata (texty/screenshoty) → oprav a **resubmit bez nového buildu**
+   - chyba v appce → oprava kódu → Fáze 1 + 3 znovu → resubmit
+   - nesouhlas s posouzením → můžeš odpovědět/odvolat se v Resolution Center
+   Zamítnutí je běžná součást procesu, většina appek si jím projde.
+
+---
+
+## Po vydání
+
+- **Aktualizace:** ASC → ⊕ nová verze (např. 1.0.1) → `eas build` +
+  `eas submit` → přiřaď build → Submit (review bývá u updatů rychlejší).
+- **Drobné JS změny bez review:** `eas update --branch production` (OTA,
+  funguje pro iOS i Android najednou). Nativní změny = vždy nový build.
+- **Roční poplatek:** membership se obnovuje za 99 USD — Apple pošle e-mail
+  měsíc předem. Bez obnovy appka z App Store **zmizí**.
+- Odkaz na appku pak doplníme na web (dotacnicek.cz) a do landing tlačítek.
