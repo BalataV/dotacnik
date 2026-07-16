@@ -4,7 +4,7 @@
     "slug": "BabisovnikApp",
     "scheme": "dotacnicek",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "backgroundColor": "#FFD60A",
@@ -17,6 +17,7 @@
     },
     "android": {
       "package": "com.balata.dotacnik",
+      "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
