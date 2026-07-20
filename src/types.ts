@@ -152,7 +152,7 @@ export interface Actions {
   deleteGroup: (id: string) => void;
   deleteAccount: () => void;
   startJoin: () => void;
-  submitJoin: () => void;
+  submitJoin: (code?: string) => void;
   joinByCode: (rawCode: string) => void;
   finishJoin: (opts: { claimName?: string; newName?: string }) => void;
   setMyName: (rawName: string) => void;

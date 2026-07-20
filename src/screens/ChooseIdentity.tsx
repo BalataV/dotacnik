@@ -30,7 +30,7 @@ export default function ChooseIdentity() {
   const dup = p.members.some((m) => m.name.toLowerCase() === newTrim.toLowerCase());
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }}>
+    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }} keyboardShouldPersistTaps="handled">
       <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 12 }}>‹ Zpět</Text>
 
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, letterSpacing: -0.5 }}>Kdo jsi?</Text>
@@ -70,6 +70,8 @@ export default function ChooseIdentity() {
         value={newName}
         onChangeText={setNewName}
         placeholder="Napiš svoje jméno"
+        returnKeyType="go"
+        onSubmitEditing={() => { if (newTrim && !dup && !state.busy) actions.finishJoin({ newName: newTrim }); }}
         style={{ marginBottom: 12 }}
       />
       <Pushable onPress={() => actions.finishJoin({ newName: newTrim })} disabled={!newTrim || dup || state.busy} radius={14}>

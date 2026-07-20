@@ -775,8 +775,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, screen: 'join', joinCodeInput: '', bubble: bubbleFor(s, 'join'), bubbleKey: s.bubbleKey + 1 }));
   }
 
-  function submitJoin() {
-    joinByCode(stateRef.current.joinCodeInput);
+  // code volitelně: auto-připojení hned po dopsání 6. znaku posílá kód přímo
+  // (stateRef by v tu chvíli ještě držel starou hodnotu)
+  function submitJoin(code?: string) {
+    joinByCode(code ?? stateRef.current.joinCodeInput);
   }
 
   // Vstupní bod připojení: načte náhled skupiny a nechá vybrat "kdo jsem".

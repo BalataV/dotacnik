@@ -86,7 +86,7 @@ export default function Profile() {
             </View>
           ) : (
             <View>
-              <Field value={editName} onChangeText={setEditName} placeholder="Napiš svoje jméno" autoFocus maxLength={30} style={{ marginBottom: 10 }} />
+              <Field value={editName} onChangeText={setEditName} placeholder="Napiš svoje jméno" autoFocus maxLength={30} returnKeyType="done" onSubmitEditing={saveName} style={{ marginBottom: 10 }} />
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <Pushable onPress={saveName} disabled={!editName.trim() || state.busy} radius={12} style={{ flex: 1 }}>
                   <View style={{ backgroundColor: c.good, borderWidth: 3, borderColor: c.ink, borderRadius: 12, paddingVertical: 11, alignItems: 'center' }}>

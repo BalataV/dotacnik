@@ -1,5 +1,5 @@
 // Přidání/úprava výdaje – měna, kdo platil, a způsob dělení (rovným dílem / poměrově / podle cen)
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, ScrollView, Alert, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
@@ -53,6 +53,7 @@ function PartInput({ name, value, onChange, suffix, hint, idx }: { name: string;
 export default function AddExpense() {
   const c = useColors();
   const { state, actions } = useApp();
+  const amountRef = useRef<TextInput>(null);
   const g = state.groups.find((x) => x.id === state.selectedGroup) || state.groups[0];
   const amt = Number(state.addAmount);
   const editing = !!state.editingExpenseId;
@@ -98,7 +99,7 @@ export default function AddExpense() {
         <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginBottom: 18, letterSpacing: -0.5 }}>{editing ? 'Upravit výdaj' : 'Nový výdaj'}</Text>
 
         <Label>Za co?</Label>
-        <Field value={state.addDesc} onChangeText={(t) => actions.patch({ addDesc: t })} placeholder="Buřty, benzín, pivo…" maxLength={100} style={{ marginBottom: 16 }} />
+        <Field value={state.addDesc} onChangeText={(t) => actions.patch({ addDesc: t })} placeholder="Buřty, benzín, pivo…" maxLength={100} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => amountRef.current?.focus()} style={{ marginBottom: 16 }} />
 
         <Label>Kategorie</Label>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 18 }}>
@@ -109,6 +110,7 @@ export default function AddExpense() {
 
         <Label>Kolik?</Label>
         <Field
+          ref={amountRef}
           value={state.addAmount}
           onChangeText={(t) => actions.patch({ addAmount: t.replace(/[^0-9]/g, '') })}
           placeholder="0"

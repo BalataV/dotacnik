@@ -129,6 +129,8 @@ export default function GroupDetail() {
           placeholder="🔍 Hledat výdaj…"
           maxLength={60}
           autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="search"
           style={{ marginBottom: 12 }}
         />
       )}

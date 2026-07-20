@@ -124,8 +124,18 @@ export default function Root() {
   return (
     <View style={{ flex: 1, backgroundColor: showChrome ? c.card : c.bg, paddingTop: insets.top }}>
       {/* Pressable přes celou plochu: ťuknutí kamkoli mimo pole zavře klávesnici.
-          Tlačítka a inputy (potomci) mají přednost, takže fungují normálně. */}
-      <Pressable style={{ flex: 1, backgroundColor: c.bg }} onPress={Keyboard.dismiss} accessible={false}>
+          Tlačítka a inputy (potomci) mají přednost. POZOR (web): klik na input
+          probublá až sem – v tom případě NEzavírat, jinak pole hned ztratí fokus
+          a klávesnice se vůbec neukáže. */}
+      <Pressable
+        style={{ flex: 1, backgroundColor: c.bg }}
+        onPress={(e: any) => {
+          const tag = e?.target?.tagName || e?.nativeEvent?.target?.tagName;
+          if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+          Keyboard.dismiss();
+        }}
+        accessible={false}
+      >
         {showChrome && (
           <View style={{ backgroundColor: c.card, borderBottomWidth: 3, borderBottomColor: c.ink, zIndex: 6 }}>
             <View style={{ width: '100%', maxWidth: MAX_W, alignSelf: 'center', paddingHorizontal: 16, paddingTop: 13, paddingBottom: 14 }}>

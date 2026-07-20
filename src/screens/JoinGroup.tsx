@@ -1,6 +1,6 @@
 // Připojení do existující skupiny pomocí kódu z pozvánky
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Keyboard } from 'react-native';
 import { FONTS } from '../theme';
 import { useApp } from '../store';
 import { useColors, Pushable, Label } from '../components/ui';
@@ -22,10 +22,21 @@ export default function JoinGroup() {
       <Label>Kód pozvánky</Label>
       <Field
         value={state.joinCodeInput}
-        onChangeText={(t) => actions.patch({ joinCodeInput: t.toUpperCase() })}
+        onChangeText={(t) => {
+          // jen písmena a číslice, velkými; po 6. znaku se rovnou připojíme
+          const code = t.toUpperCase().replace(/[^A-Z0-9]/g, '');
+          actions.patch({ joinCodeInput: code });
+          if (code.length === 6) {
+            Keyboard.dismiss();
+            actions.submitJoin(code);
+          }
+        }}
         placeholder="např. 8KRGF1"
         autoCapitalize="characters"
-        maxLength={12}
+        autoCorrect={false}
+        maxLength={6}
+        returnKeyType="go"
+        onSubmitEditing={() => actions.submitJoin()}
         style={{ marginBottom: 22 }}
       />
 

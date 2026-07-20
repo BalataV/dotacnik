@@ -18,7 +18,7 @@ export default function CreateGroup() {
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginBottom: 18, letterSpacing: -0.5 }}>Nová skupina</Text>
 
       <Label>Název skupiny</Label>
-      <Field value={state.newGroupName} onChangeText={(t) => actions.patch({ newGroupName: t })} placeholder="Chata, výlet, pivo…" maxLength={50} style={{ marginBottom: 18 }} />
+      <Field value={state.newGroupName} onChangeText={(t) => actions.patch({ newGroupName: t })} placeholder="Chata, výlet, pivo…" maxLength={50} returnKeyType="done" style={{ marginBottom: 18 }} />
 
       <Label>Členové skupiny</Label>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 7, marginBottom: 12, minHeight: 38 }}>
@@ -37,6 +37,8 @@ export default function CreateGroup() {
           value={state.newMemberInput}
           onChangeText={(t) => actions.patch({ newMemberInput: t })}
           onSubmitEditing={actions.addMember}
+          submitBehavior="submit"
+          returnKeyType="next"
           placeholder="Jméno člena…"
           maxLength={30}
           style={{ flex: 1 }}

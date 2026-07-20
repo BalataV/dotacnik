@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&subset=latin-ext&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{width:1080px;height:1080px;background:#FFD60A;background-image:radial-gradient(#e8c200 3px,transparent 3px);background-size:32px 32px;font-family:Nunito,sans-serif;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.bubble{position:relative;background:#fff;color:#15233B;border:6px solid #15233B;border-radius:30px;padding:30px 42px;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:46px;line-height:1.28;box-shadow:9px 9px 0 #15233B;max-width:760px;text-align:center;margin-bottom:26px}
+.bubble .tail{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:26px solid #15233B}
+.bubble .tail::after{content:'';position:absolute;left:-16px;top:-32px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:20px solid #fff}
+.mascot{width:270px;height:292px;margin-top:22px}
+.brandrow{display:flex;align-items:center;gap:14px;margin-top:30px}
+.brand{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:42px;color:#15233B;letter-spacing:-1px}
+.tag{font-weight:800;font-size:24px;color:#15233B;opacity:.7;margin-top:6px;text-align:center}
+.coin{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE680,#E0A800);border:4px solid #B8860B;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:700;color:#7a5a00}
+</style></head>
+<body>
+  <div class="coin" style="width:54px;height:54px;left:70px;top:80px;font-size:18px">Kč</div>
+  <div class="coin" style="width:40px;height:40px;right:100px;top:120px;font-size:14px">€</div>
+  <div class="coin" style="width:46px;height:46px;left:110px;bottom:90px;font-size:16px">Kč</div>
+  <div class="coin" style="width:36px;height:36px;right:150px;bottom:70px;font-size:13px">$</div>
+
+  <div class="bubble">Spolubydlící ti dluží za nájem?<br>Zeptej se appky, ne jeho svědomí.<div class="tail"></div></div>
+  <svg class="mascot" viewBox="0 0 100 108" xmlns="http://www.w3.org/2000/svg">
+    <rect x="17" y="1" width="66" height="55" rx="28" fill="#B9B1A0"/>
+    <rect x="15" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <rect x="72" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <rect x="22" y="9" width="56" height="69" rx="27" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+    <rect x="23" y="3" width="54" height="27" rx="24" fill="#C7BFAE" stroke="#15233B" stroke-width="3"/>
+    <rect x="30" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+    <rect x="56" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+    <circle cx="37.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+    <circle cx="38.5" cy="46" r="3" fill="#15233B"/>
+    <circle cx="62.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+    <circle cx="63.5" cy="46" r="3" fill="#15233B"/>
+    <rect x="45" y="48" width="11" height="15" rx="5" fill="#E6B488"/>
+    <rect x="39" y="64" width="23" height="9" rx="5" fill="#8A3D2E" stroke="#15233B" stroke-width="2"/>
+    <path d="M13 103 L13 95 Q13 84 43 84 L57 84 Q87 84 87 95 L87 103 Z" fill="#15233B"/>
+    <rect x="45" y="84" width="10" height="17" rx="3" fill="#E23B2E" stroke="#15233B" stroke-width="2"/>
+  </svg>
+  <div class="brandrow">
+    <div class="brand">Dotačníček</div>
+  </div>
+  <div class="tag">Kdo komu dluží? Spočítám to za vás.</div>
+</body></html>

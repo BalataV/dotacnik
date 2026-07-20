@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&subset=latin-ext&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{width:1080px;height:1920px;background:#FFD60A;font-family:Nunito,sans-serif;position:relative;overflow:hidden}
+.header{background:#fff;border-bottom:5px solid #15233B;padding:34px 40px 30px}
+.brand{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:46px;color:#15233B;letter-spacing:-1px}
+.hrow{display:flex;align-items:flex-end;gap:18px;margin-top:22px}
+.avatar{width:76px;height:82px;flex:none}
+.bubble{position:relative;flex:1;background:#fff;color:#15233B;border:5px solid #15233B;border-radius:22px;padding:18px 24px;font-weight:800;font-size:30px;line-height:1.3;box-shadow:5px 5px 0 #15233B}
+.content{padding:40px 40px}
+.label{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:44px;color:#15233B;margin:0 0 26px}
+.dcard{display:flex;align-items:center;gap:24px;background:#fff;border:5px solid #15233B;border-radius:28px;padding:30px;box-shadow:7px 7px 0 #15233B;margin-bottom:26px}
+.circ{width:78px;height:78px;border-radius:50%;color:#fff;font-weight:800;font-size:30px;display:flex;align-items:center;justify-content:center;flex:none;border:3px solid #15233B;background:#1FA06A}
+.tname{font-weight:800;font-size:32px;color:#15233B}
+.tamt{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:42px;color:#E23B2E;margin-top:4px}
+.paidbtn{background:#1FA06A;color:#fff;border:4px solid #15233B;border-radius:18px;padding:20px 30px;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:26px;box-shadow:4px 4px 0 #15233B;flex:none}
+.coin{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE680,#E0A800);border:4px solid #B8860B;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:700;color:#7a5a00}
+</style></head>
+<body>
+  <div class="header">
+    <div class="brand">Dotačníček</div>
+    <div class="hrow">
+      <svg class="avatar" viewBox="0 0 100 108" xmlns="http://www.w3.org/2000/svg">
+        <rect x="17" y="1" width="66" height="55" rx="28" fill="#B9B1A0"/>
+        <rect x="15" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+        <rect x="72" y="41" width="13" height="16" rx="8" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+        <rect x="22" y="9" width="56" height="69" rx="27" fill="#F4C9A0" stroke="#15233B" stroke-width="3"/>
+        <rect x="23" y="3" width="54" height="27" rx="24" fill="#C7BFAE" stroke="#15233B" stroke-width="3"/>
+        <rect x="30" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+        <rect x="56" y="33" width="14" height="5" rx="2.5" fill="#8B8475"/>
+        <circle cx="37.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+        <circle cx="38.5" cy="46" r="3" fill="#15233B"/>
+        <circle cx="62.5" cy="44.5" r="6.5" fill="#FFFFFF" stroke="#15233B" stroke-width="2"/>
+        <circle cx="63.5" cy="46" r="3" fill="#15233B"/>
+        <rect x="45" y="48" width="11" height="15" rx="5" fill="#E6B488"/>
+        <rect x="39" y="64" width="23" height="9" rx="5" fill="#8A3D2E" stroke="#15233B" stroke-width="2"/>
+        <path d="M13 103 L13 95 Q13 84 43 84 L57 84 Q87 84 87 95 L87 103 Z" fill="#15233B"/>
+        <rect x="45" y="84" width="10" height="17" rx="3" fill="#E23B2E" stroke="#15233B" stroke-width="2"/>
+      </svg>
+      <div class="bubble">Zacvakej to a bude líp.</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="label">Vypořádání</div>
+    <div class="dcard">
+      <div class="circ">O</div>
+      <div style="flex:1"><div class="tname">Dlužíš Otovi</div><div class="tamt">620 Kč</div></div>
+      <div class="paidbtn">Zaplaceno ✓</div>
+    </div>
+  </div>
+  <div class="coin" style="width:60px;height:60px;left:120px;top:900px;font-size:20px">Kč</div>
+  <div class="coin" style="width:44px;height:44px;left:260px;top:1040px;font-size:16px">Kč</div>
+  <div class="coin" style="width:50px;height:50px;right:150px;top:960px;font-size:18px">Kč</div>
+  <div class="coin" style="width:70px;height:70px;right:260px;top:1120px;font-size:24px">Kč</div>
+  <div class="coin" style="width:40px;height:40px;left:480px;top:1180px;font-size:14px">Kč</div>
+</body></html>

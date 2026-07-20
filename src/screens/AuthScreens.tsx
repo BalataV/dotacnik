@@ -1,6 +1,6 @@
 // Úvodní obrazovka, registrace e-mailem a přihlášení
-import React from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { FONTS } from '../theme';
 import { useApp, CLOUD_MODE } from '../store';
@@ -85,6 +85,7 @@ function BackButton({ onPress, label = '‹ Zpět' }: { onPress: () => void; lab
 export function RegisterEmail() {
   const c = useColors();
   const { state, actions } = useApp();
+  const passRef = useRef<TextInput>(null);
   const valid = !!(state.regEmail && state.regPassword.length >= 6);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -93,9 +94,9 @@ export function RegisterEmail() {
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Vytvořit účet</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Registrace je zdarma. Sorry jako.</Text>
       <Label>E-mail</Label>
-      <Field value={state.regEmail} onChangeText={(t) => actions.patch({ regEmail: t })} placeholder="vas@email.cz" keyboardType="email-address" autoCapitalize="none" autoComplete="email" textContentType="emailAddress" maxLength={254} style={{ marginBottom: 14 }} />
+      <Field value={state.regEmail} onChangeText={(t) => actions.patch({ regEmail: t })} placeholder="vas@email.cz" keyboardType="email-address" autoCapitalize="none" autoComplete="email" textContentType="emailAddress" maxLength={254} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => passRef.current?.focus()} style={{ marginBottom: 14 }} />
       <Label>Heslo</Label>
-      <Field value={state.regPassword} onChangeText={(t) => actions.patch({ regPassword: t })} placeholder="min. 6 znaků" secureTextEntry autoComplete="new-password" textContentType="newPassword" maxLength={72} style={{ marginBottom: 26 }} />
+      <Field ref={passRef} value={state.regPassword} onChangeText={(t) => actions.patch({ regPassword: t })} placeholder="min. 6 znaků" secureTextEntry autoComplete="new-password" textContentType="newPassword" maxLength={72} returnKeyType="go" onSubmitEditing={actions.doRegister} style={{ marginBottom: 26 }} />
       <Pushable onPress={actions.doRegister} disabled={!valid} radius={14}>
         <View style={{ backgroundColor: c.good, borderWidth: 3, borderColor: c.ink, borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
           <Text style={{ fontFamily: FONTS.display600, fontSize: 18, color: '#fff' }}>Zaregistrovat se</Text>
@@ -112,6 +113,7 @@ export function RegisterEmail() {
 export function Login() {
   const c = useColors();
   const { state, actions } = useApp();
+  const passRef = useRef<TextInput>(null);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled">
@@ -119,9 +121,9 @@ export function Login() {
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Přihlásit se</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Vítej zpátky, motýle!</Text>
       <Label>E-mail</Label>
-      <Field value={state.loginEmail} onChangeText={(t) => actions.patch({ loginEmail: t })} placeholder="vas@email.cz" keyboardType="email-address" autoCapitalize="none" autoComplete="email" textContentType="emailAddress" maxLength={254} style={{ marginBottom: 14 }} />
+      <Field value={state.loginEmail} onChangeText={(t) => actions.patch({ loginEmail: t })} placeholder="vas@email.cz" keyboardType="email-address" autoCapitalize="none" autoComplete="email" textContentType="emailAddress" maxLength={254} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => passRef.current?.focus()} style={{ marginBottom: 14 }} />
       <Label>Heslo</Label>
-      <Field value={state.loginPassword} onChangeText={(t) => actions.patch({ loginPassword: t })} placeholder="••••••••" secureTextEntry autoComplete="current-password" textContentType="password" maxLength={72} style={{ marginBottom: 10 }} />
+      <Field ref={passRef} value={state.loginPassword} onChangeText={(t) => actions.patch({ loginPassword: t })} placeholder="••••••••" secureTextEntry autoComplete="current-password" textContentType="password" maxLength={72} returnKeyType="go" onSubmitEditing={actions.doLogin} style={{ marginBottom: 10 }} />
       <Text onPress={actions.sendPasswordReset} accessibilityRole="button" suppressHighlighting style={{ textAlign: 'right', fontFamily: FONTS.body700, fontSize: 13, color: c.onbg, opacity: 0.65, marginBottom: 24 }}>
         Zapomenuté heslo? Pošleme ti odkaz
       </Text>
@@ -150,7 +152,7 @@ export function ResetPassword() {
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Nové heslo</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Zadej nové heslo ke svému účtu. To staré klidně zapomeň.</Text>
       <Label>Nové heslo</Label>
-      <Field value={state.resetPass} onChangeText={(t) => actions.patch({ resetPass: t })} placeholder="min. 6 znaků" secureTextEntry autoComplete="new-password" textContentType="newPassword" maxLength={72} style={{ marginBottom: 26 }} />
+      <Field value={state.resetPass} onChangeText={(t) => actions.patch({ resetPass: t })} placeholder="min. 6 znaků" secureTextEntry autoComplete="new-password" textContentType="newPassword" maxLength={72} returnKeyType="done" onSubmitEditing={actions.submitNewPassword} style={{ marginBottom: 26 }} />
       <Pushable onPress={actions.submitNewPassword} disabled={!valid} radius={14}>
         <View style={{ backgroundColor: c.good, borderWidth: 3, borderColor: c.ink, borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
           <Text style={{ fontFamily: FONTS.display600, fontSize: 18, color: '#fff' }}>Uložit nové heslo</Text>
