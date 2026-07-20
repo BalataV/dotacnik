@@ -90,6 +90,26 @@ export default function GroupDetail() {
         )}
       </View>
 
+      {/* Parta – kdo už je v appce připojený (userId), kdo zatím čeká */}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: g.memberList?.some((m) => !m.userId) ? 8 : 18 }}>
+        {(g.memberList
+          ? g.memberList.map((m) => ({ key: m.id, name: m.userId === state.meUid ? 'Já' : m.name, joined: !!m.userId as boolean | undefined }))
+          : g.members.map((n) => ({ key: n, name: n, joined: undefined as boolean | undefined }))
+        ).map((m) => (
+          <View key={m.key} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: c.card, borderWidth: 2, borderColor: c.ink, borderRadius: 20, paddingVertical: 5, paddingLeft: 6, paddingRight: 10, opacity: m.joined === false ? 0.55 : 1 }}>
+            <Avatar name={m.name} initial={initial(m.name)} color={colorForMember(m.name)} size={24} fontSize={10} />
+            <Text style={{ fontFamily: FONTS.body800, fontSize: 13, color: c.ink }}>{m.name}</Text>
+            {m.joined === true && <Text style={{ fontSize: 11 }} accessibilityLabel="Připojený člen">✅</Text>}
+            {m.joined === false && <Text style={{ fontFamily: FONTS.body700, fontSize: 11, color: c.muted }}>⏳ čeká</Text>}
+          </View>
+        ))}
+      </View>
+      {g.memberList?.some((m) => !m.userId) && (
+        <Text style={{ fontFamily: FONTS.body700, fontSize: 12, color: c.onbg, opacity: 0.65, marginBottom: 18, lineHeight: 17 }}>
+          ⏳ = zatím není v appce. Pošli pozvánku tlačítkem 📤 Pozvat{g.shareCode ? ' (kód ' + g.shareCode + ')' : ''}, dluhy se jim počítají i tak.
+        </Text>
+      )}
+
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
         <Text style={{ fontFamily: FONTS.display600, fontSize: 17, color: c.onbg }}>Kdo komu dluží</Text>
         <Text onPress={shareCard} accessibilityRole="button" accessibilityLabel="Sdílet přehled dluhů jako obrázek" suppressHighlighting style={{ fontFamily: FONTS.body800, fontSize: 14, color: c.accent }}>📸 Sdílet</Text>
