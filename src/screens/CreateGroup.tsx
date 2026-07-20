@@ -13,7 +13,7 @@ export default function CreateGroup() {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 24 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 14 }}>‹ Zpět</Text>
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginBottom: 18, letterSpacing: -0.5 }}>Nová skupina</Text>
 

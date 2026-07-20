@@ -1,6 +1,6 @@
 // Hlavní obal aplikace: hlavička s maskotem, přepínání obrazovek, spodní navigace
 import React, { useEffect } from 'react';
-import { View, Text, Pressable, StatusBar, ActivityIndicator, Keyboard } from 'react-native';
+import { View, Text, Pressable, StatusBar, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FONTS } from './theme';
 import { useApp } from './store';
@@ -123,19 +123,10 @@ export default function Root() {
 
   return (
     <View style={{ flex: 1, backgroundColor: showChrome ? c.card : c.bg, paddingTop: insets.top }}>
-      {/* Pressable přes celou plochu: ťuknutí kamkoli mimo pole zavře klávesnici.
-          Tlačítka a inputy (potomci) mají přednost. POZOR (web): klik na input
-          probublá až sem – v tom případě NEzavírat, jinak pole hned ztratí fokus
-          a klávesnice se vůbec neukáže. */}
-      <Pressable
-        style={{ flex: 1, backgroundColor: c.bg }}
-        onPress={(e: any) => {
-          const tag = e?.target?.tagName || e?.nativeEvent?.target?.tagName;
-          if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-          Keyboard.dismiss();
-        }}
-        accessible={false}
-      >
+      {/* Zavírání klávesnice řeší samy ScrollView přes keyboardShouldPersistTaps
+          (ťuknutí mimo pole) a keyboardDismissMode="on-drag" (scroll). Žádný
+          celoplošný Pressable – ten na Androidu bral doteky a rozbíjel scroll. */}
+      <View style={{ flex: 1, backgroundColor: c.bg }}>
         {showChrome && (
           <View style={{ backgroundColor: c.card, borderBottomWidth: 3, borderBottomColor: c.ink, zIndex: 6 }}>
             <View style={{ width: '100%', maxWidth: MAX_W, alignSelf: 'center', paddingHorizontal: 16, paddingTop: 13, paddingBottom: 14 }}>
@@ -173,7 +164,7 @@ export default function Root() {
             </View>
           </View>
         )}
-      </Pressable>
+      </View>
       <StatusBar barStyle={isDarkColor(showChrome ? c.card : c.bg) ? 'light-content' : 'dark-content'} />
     </View>
   );

@@ -12,7 +12,7 @@ export default function JoinGroup() {
   const valid = !!state.joinCodeInput.trim();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: 16 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 16, paddingTop: 16 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 14 }}>‹ Zpět</Text>
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginBottom: 6, letterSpacing: -0.5 }}>Připojit se do skupiny</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 22, lineHeight: 20 }}>

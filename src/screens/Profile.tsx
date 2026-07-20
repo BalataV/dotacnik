@@ -61,7 +61,7 @@ export default function Profile() {
   }
 
   return (
-    <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 20, paddingBottom: 24, alignItems: 'center' }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 20, paddingBottom: 24, alignItems: 'center' }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <Mascot size={110} float />
 
       <View style={{ flexDirection: 'row', gap: 8, marginTop: 18, marginBottom: 16, width: '100%' }}>

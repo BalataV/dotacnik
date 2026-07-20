@@ -30,7 +30,7 @@ export default function ChooseIdentity() {
   const dup = p.members.some((m) => m.name.toLowerCase() === newTrim.toLowerCase());
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 12 }}>‹ Zpět</Text>
 
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, letterSpacing: -0.5 }}>Kdo jsi?</Text>

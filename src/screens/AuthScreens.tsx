@@ -89,7 +89,7 @@ export function RegisterEmail() {
   const valid = !!(state.regEmail && state.regPassword.length >= 6);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <BackButton onPress={() => actions.navigate('onboarding')} />
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Vytvořit účet</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Registrace je zdarma. Sorry jako.</Text>
@@ -116,7 +116,7 @@ export function Login() {
   const passRef = useRef<TextInput>(null);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <BackButton onPress={() => actions.navigate('onboarding')} />
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Přihlásit se</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Vítej zpátky, motýle!</Text>
@@ -148,7 +148,7 @@ export function ResetPassword() {
   const valid = state.resetPass.length >= 6;
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 28 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
       <Text style={{ fontFamily: FONTS.display700, fontSize: 28, color: c.onbg, marginBottom: 4 }}>Nové heslo</Text>
       <Text style={{ fontFamily: FONTS.body700, fontSize: 14, color: c.onbg, opacity: 0.6, marginBottom: 26 }}>Zadej nové heslo ke svému účtu. To staré klidně zapomeň.</Text>
       <Label>Nové heslo</Label>

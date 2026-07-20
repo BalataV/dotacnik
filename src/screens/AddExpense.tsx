@@ -94,7 +94,7 @@ export default function AddExpense() {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 28 }} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
         <Text onPress={back} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 10 }}>‹ Zpět</Text>
         <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, marginBottom: 18, letterSpacing: -0.5 }}>{editing ? 'Upravit výdaj' : 'Nový výdaj'}</Text>
 

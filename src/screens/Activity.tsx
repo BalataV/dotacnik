@@ -21,37 +21,6 @@ export default function Activity() {
       <Text onPress={() => actions.openGroup(g.id)} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 10 }}>‹ Skupina</Text>
       <Text style={{ fontFamily: FONTS.display700, fontSize: 26, color: c.onbg, letterSpacing: -0.5, marginBottom: 14 }}>🕓 Historie</Text>
 
-      {/* Parta – stav připojení členů (jen cloud: memberList nese userId) */}
-      {g.memberList && (
-        <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontFamily: FONTS.display600, fontSize: 17, color: c.onbg, marginBottom: 10 }}>Parta</Text>
-          <View style={{ position: 'relative' }}>
-            <View style={{ position: 'absolute', top: 3, left: 3, right: -3, bottom: -3, backgroundColor: c.ink, borderRadius: 16 }} />
-            <View style={{ backgroundColor: c.card, borderWidth: 3, borderColor: c.ink, borderRadius: 16, overflow: 'hidden' }}>
-              {g.memberList.map((m, i) => {
-                const name = m.userId === state.meUid ? 'Já' : m.name;
-                const joined = !!m.userId;
-                return (
-                  <View key={m.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 10, paddingHorizontal: 13, borderTopWidth: i === 0 ? 0 : 2, borderTopColor: 'rgba(127,127,127,0.15)', opacity: joined ? 1 : 0.6 }}>
-                    <Avatar name={name} initial={initial(name)} color={colorForMember(name)} size={30} />
-                    <Text style={{ flex: 1, fontFamily: FONTS.body800, fontSize: 14, color: c.ink }} numberOfLines={1}>{name}</Text>
-                    <Text style={{ fontFamily: FONTS.body700, fontSize: 12, color: joined ? c.good : c.muted }}>
-                      {joined ? '✅ Připojeno' : '⏳ Zatím bez appky'}
-                    </Text>
-                  </View>
-                );
-              })}
-              {g.memberList.some((m) => !m.userId) && g.shareCode && (
-                <View style={{ paddingHorizontal: 13, paddingVertical: 9, borderTopWidth: 2, borderTopColor: 'rgba(127,127,127,0.15)', backgroundColor: c.bg2 }}>
-                  <Text style={{ fontFamily: FONTS.body700, fontSize: 12, color: c.onbg }}>Pozvi je kódem <Text style={{ fontFamily: FONTS.display700 }}>{g.shareCode}</Text> — najdou ho i pod 📤 Pozvat ve skupině.</Text>
-                </View>
-              )}
-            </View>
-          </View>
-        </View>
-      )}
-
-      {g.memberList && <Text style={{ fontFamily: FONTS.display600, fontSize: 17, color: c.onbg, marginBottom: 10 }}>Události</Text>}
       {feed.length === 0 ? (
         <View style={{ position: 'relative' }}>
           <View style={{ position: 'absolute', top: 4, left: 4, right: -4, bottom: -4, backgroundColor: c.ink, borderRadius: 18 }} />

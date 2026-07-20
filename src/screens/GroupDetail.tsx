@@ -75,7 +75,7 @@ export default function GroupDetail() {
   return (
     <ScrollView
       contentContainerStyle={{ padding: 16, paddingBottom: 24 }}
-      keyboardShouldPersistTaps="handled"
+      keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag"
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={c.ink} colors={[c.accent]} />}
     >
       <Text onPress={() => actions.navigate('overview')} accessibilityRole="button" suppressHighlighting style={{ color: c.onbg, fontFamily: FONTS.body800, fontSize: 15, marginBottom: 10 }}>‹ Skupiny</Text>
